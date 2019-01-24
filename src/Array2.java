@@ -124,11 +124,11 @@ class Array2 {
     /**
      * Assignment 1 Question 1 Reverse the array
      */
-    public void reverse(Array2 a) {
+    public void reverse() {
 
-        int j = a.size()-1;
+        int j = size()-1;
         for(int i = 0; i < j; i++){
-            a.swap(arr,i,j);
+            swap(arr,i,j);
             j--;
         }
     }
@@ -154,8 +154,14 @@ class Array2 {
      *
      * @param i the element to remove
      */
-    public void remove2(int i) {
-        throw new UnsupportedOperationException();
+    public void remove2(int i, Array2 a) {
+
+        if(i == arr[a.size()-1]){
+            a.size--;
+        } else {
+            a.swap(arr,i,a.size()-1);
+            a.size--;
+        }
     }
 
     /**
@@ -165,8 +171,14 @@ class Array2 {
      * @param x the element to find
      * @return the index of the first occurrence
      */
-    public int find(int x) {
-        throw new UnsupportedOperationException();
+    public int find(int x, Array2 a) {
+
+        for (int i = 0; i < a.size(); i++){
+            if (x == a.get(i)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -176,7 +188,29 @@ class Array2 {
      * @return The length of the palindrome
      */
     public int maxPalindrome() {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+
+        int k = 0;
+        int longestPalindrome = 0;
+
+        for(int i = 0; i < size()/2; i++){
+            int matchCounter = 0;
+            for (int j = size()-1; j > size()/2; j--){
+                if (get(k) != get(j)){
+                    break;
+                } else {
+                    k++;
+                    matchCounter+=1;
+                }
+                if (matchCounter > longestPalindrome){
+                    longestPalindrome = matchCounter;
+                }
+            }
+        }
+        if (size() % 2 == 0){
+            return longestPalindrome*2;
+        }
+        return longestPalindrome*2 + 1;
     }
 
     /**
@@ -199,17 +233,30 @@ class Array2 {
     }
 
     public static void main(String[] args) {
-        Array2 a = new Array2(5);
+
+        Array2 a = new Array2(11);
         a.set(0, 1);
-        a.set(1, 2);
+        a.set(1, 2); //index 1
         a.set(2, 3);
-        a.set(3, 4);
-        a.set(4, 5);
-        //a.reverse(a);
+        a.set(3, 2);
+        a.set(4, 1);
+        a.set(5, 1);
+        a.set(6, 2);
+        a.set(7, 3);
+        a.set(9, 3);
+        a.set(10, 2);
+        a.set(11, 1);
+
+        /*a.reverse();
+        System.out.println(a);*/
+
+        //a.remove2(3,a);
         //System.out.println(a);
 
-        a.remove(3,a);
-        System.out.println(a);
+        //System.out.println(a.find(4, a));
+        //System.out.println(a.find(8, a));
+
+        System.out.println(a.maxPalindrome());
 
     }
 }
