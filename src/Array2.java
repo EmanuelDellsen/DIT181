@@ -124,9 +124,12 @@ class Array2 {
     /**
      * Assignment 1 Question 1 Reverse the array
      */
-    public void reverse() {
-        for (int i = 0; i < arr.length; i++){
-            arr[i] = arr[arr.length - 1 - i];
+    public void reverse(Array2 a) {
+
+        int j = a.size()-1;
+        for(int i = 0; i < j; i++){
+            a.swap(arr,i,j);
+            j--;
         }
     }
 
@@ -135,8 +138,14 @@ class Array2 {
      *
      * @param i the element to remove
      */
-    public void remove(int i) {
-        throw new UnsupportedOperationException();
+    public void remove(int i, Array2 a) {
+
+        for (int j = 0; j < a.size(); j++){
+            if(j == i){
+                a.set(j,arr[j+1]);
+            }
+        }
+        a.size--;
     }
 
     /**
@@ -190,11 +199,17 @@ class Array2 {
     }
 
     public static void main(String[] args) {
-        Array2 a = new Array2(3);
-        a.set(0, 4);
+        Array2 a = new Array2(5);
+        a.set(0, 1);
         a.set(1, 2);
-        System.out.println(a.reverse());
-        System.out.println(a.toString());
+        a.set(2, 3);
+        a.set(3, 4);
+        a.set(4, 5);
+        //a.reverse(a);
+        //System.out.println(a);
+
+        a.remove(3,a);
+        System.out.println(a);
 
     }
 }
