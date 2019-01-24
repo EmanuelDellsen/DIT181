@@ -190,12 +190,12 @@ class Array2 {
     public int maxPalindrome() {
         //throw new UnsupportedOperationException();
 
-        int k = 0;
         int longestPalindrome = 0;
+        int k = 0;
 
         for(int i = 0; i < size()/2; i++){
             int matchCounter = 0;
-            for (int j = size()-1; j > size()/2; j--){
+            for (int j = size()-1; j > size()/2-1; j--){
                 if (get(k) != get(j)){
                     break;
                 } else {
@@ -234,18 +234,13 @@ class Array2 {
 
     public static void main(String[] args) {
 
-        Array2 a = new Array2(11);
+        Array2 a = new Array2(6);
         a.set(0, 1);
         a.set(1, 2); //index 1
-        a.set(2, 3);
-        a.set(3, 2);
-        a.set(4, 1);
+        a.set(2, 1);
+        a.set(3, 3);
+        a.set(4, 2);
         a.set(5, 1);
-        a.set(6, 2);
-        a.set(7, 3);
-        a.set(9, 3);
-        a.set(10, 2);
-        a.set(11, 1);
 
         /*a.reverse();
         System.out.println(a);*/
