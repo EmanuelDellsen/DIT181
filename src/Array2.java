@@ -185,7 +185,7 @@ class Array2 {
 
         int j = size() - 1;
         for (int i = 0; i < j; i++) {
-            swap(arr, i, j);
+            swap(this.arr, i, j);
             j--;
         }
     }
@@ -197,12 +197,16 @@ class Array2 {
      */
     public void remove(int i) {
 
-        for (int j = 0; j < size(); j++) {
+        for (int j = 0; j < this.size-1; j++) {
             if (j == i) {
-                set(j, arr[j + 1]);
+                swap(this.arr,j,j+1);
+            }
+            if (i < j){
+                swap(this.arr,j,j+1);
             }
         }
-        size--;
+        set(this.size-1,0);
+        this.size--;
     }
 
     /**
@@ -213,11 +217,11 @@ class Array2 {
      */
     public void remove2(int i) {
 
-        if (i == arr[size() - 1]) {
-            size--;
+        if (i == this.arr[size() - 1]) {
+            this.size--;
         } else {
-            swap(arr, i, size() - 1);
-            size--;
+            swap(this.arr, i, size() - 1);
+            this.size--;
         }
     }
 
@@ -293,28 +297,19 @@ class Array2 {
 
     public static void main(String[] args) {
 
-        Array2 a = new Array2(11);
+        Array2 a = new Array2(4);
         Array2 b = new Array2(5);
-        a.set(0, 1);
-        a.set(1, 2);
-        a.set(2, 2);
-        a.set(3, 1);
-        a.set(4, 2);
-        a.set(5, 3);
-        a.set(6, 2);
-        a.set(7, 4);
-        a.set(8, 4);
-        a.set(9, 5);
-        a.set(10, 5);
-        //  a.set(6, 6);
-        /*b.set(0, 6);
-        b.set(1, 5);
-        b.set(2, 5);
-        b.set(3, 3);
-        b.set(4, 4);*/
 
+        a.set(0,1);
+        a.set(1,2);
+        a.set(2,3);
+        a.set(3,4);
 
-        // System.out.println(a.subArrayIndex(b));
-        System.out.println(a.maxPalindrome());
+        a.remove(0);
+
+        a.size = 4;
+
+        System.out.println(a);
+
     }
 }
