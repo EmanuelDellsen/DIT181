@@ -14,7 +14,6 @@ class Array2 {
     }
 
     /**
-     *
      * @return the size of the Array
      */
     public int size() {
@@ -43,7 +42,6 @@ class Array2 {
     }
 
     /**
-     *
      * @return the content of the array as a String
      */
     public String toString() {
@@ -67,6 +65,20 @@ class Array2 {
      * @param x the element to insert
      */
     public void insert(int i, int x) {
+
+        if (i < 0 || i > size()) {
+            throw new IllegalArgumentException("Cant be negative");
+        }
+        if (i == max_elements) {
+            throw new IllegalArgumentException("to high of a number");
+        }
+        for (int j = size; i < j; j--) {
+            arr[j] = arr[j - 1];
+
+        }
+        arr[i] = x;
+        size++;
+
         throw new UnsupportedOperationException();
 
     }
@@ -77,7 +89,14 @@ class Array2 {
      * @return true if the array is sorted
      */
     public boolean isSorted() {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        for (int i = 0; i < size() - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+
     }
 
     /**
@@ -86,9 +105,30 @@ class Array2 {
      * @return the length of longest increasing sub array
      */
     public int maxNonDecreasing() {
-        throw new UnsupportedOperationException();
-
+        //throw new UnsupportedOperationException();
+        int currentMax = 1;
+        int max = 0;
+        if (size() > 0) {
+            for (int i = 0; i < size() - 1; i++) {
+                if (get(i) <= get(i + 1)) {
+                    currentMax++;
+                } else {
+                    if (currentMax > max) {
+                        max = currentMax;
+                        currentMax = 1;
+                    }
+                }
+            }
+            if (currentMax > max) {
+                return currentMax;
+            } else {
+                return max;
+            }
+        } else {
+            return 0;
+        }
     }
+
 
     /**
      * Hands on session 1 Exercise 4 - returns the index of the first number in the
@@ -98,7 +138,22 @@ class Array2 {
      * @return the index where the subarray starts
      */
     public int subArrayIndex(Array2 b) {
-        throw new UnsupportedOperationException();
+        // throw new UnsupportedOperationException();
+        for (int i = 0; i <= (size - (b.size() - 1)); i++) {
+            boolean isEqual = true;
+            int j = 0;
+            while (isEqual && (j <= b.size() - 1)) {
+                if (arr[i + j] == b.get(j)) {
+                    j++;
+                } else {
+                    isEqual = false;
+                }
+            }
+            if (isEqual) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     // Internal method for swapping
@@ -117,18 +172,20 @@ class Array2 {
      * @param hi    the index of the high boundary of the subarray
      * @return the sum of the subarray
      */
-    public static int maxSubarraySum(int[] array, int lo, int hi) {
-        throw new UnsupportedOperationException();
+   /* public static int maxSubarraySum(int[] array, int lo, int hi) {
+       // throw new UnsupportedOperationException();
+
     }
+*/
 
     /**
      * Assignment 1 Question 1 Reverse the array
      */
     public void reverse() {
 
-        int j = size()-1;
-        for(int i = 0; i < j; i++){
-            swap(arr,i,j);
+        int j = size() - 1;
+        for (int i = 0; i < j; i++) {
+            swap(arr, i, j);
             j--;
         }
     }
@@ -138,14 +195,14 @@ class Array2 {
      *
      * @param i the element to remove
      */
-    public void remove(int i, Array2 a) {
+    public void remove(int i) {
 
-        for (int j = 0; j < a.size(); j++){
-            if(j == i){
-                a.set(j,arr[j+1]);
+        for (int j = 0; j < size(); j++) {
+            if (j == i) {
+                set(j, arr[j + 1]);
             }
         }
-        a.size--;
+        size--;
     }
 
     /**
@@ -154,13 +211,13 @@ class Array2 {
      *
      * @param i the element to remove
      */
-    public void remove2(int i, Array2 a) {
+    public void remove2(int i) {
 
-        if(i == arr[a.size()-1]){
-            a.size--;
+        if (i == arr[size() - 1]) {
+            size--;
         } else {
-            a.swap(arr,i,a.size()-1);
-            a.size--;
+            swap(arr, i, size() - 1);
+            size--;
         }
     }
 
@@ -171,10 +228,10 @@ class Array2 {
      * @param x the element to find
      * @return the index of the first occurrence
      */
-    public int find(int x, Array2 a) {
+    public int find(int x) {
 
-        for (int i = 0; i < a.size(); i++){
-            if (x == a.get(i)){
+        for (int i = 0; i < size(); i++) {
+            if (x == get(i)) {
                 return i;
             }
         }
@@ -191,30 +248,32 @@ class Array2 {
         //throw new UnsupportedOperationException();
 
         int longestPalindrome = 0;
-        int k = 0;
-
-        for(int i = 0; i < size()/2; i++){
+        for (int i = 0; i < size() - 1; i++) {
             int matchCounter = 0;
-            for (int j = size()-1; j > size()/2-1; j--){
-                if (get(k) != get(j)){
-                    break;
+            int k = i;
+            for (int j = size() - 1; j >= k; j--) {
+                if (get(k) != get(j)) {
+                    k = i;
+                    matchCounter = 0;
                 } else {
-                    k++;
-                    matchCounter+=1;
-                }
-                if (matchCounter > longestPalindrome){
-                    longestPalindrome = matchCounter;
+                    if (k == j) {
+                        k++;
+                        matchCounter += 1;
+                    } else {
+                        k++;
+                        matchCounter += 2;
+                    }
                 }
             }
+            if (matchCounter > longestPalindrome) {
+                longestPalindrome = matchCounter;
+            }
         }
-        if (size() % 2 == 0){
-            return longestPalindrome*2;
-        }
-        return longestPalindrome*2 + 1;
+        return longestPalindrome;
     }
 
     /**
-     * Assignment 2 Question 3 returns the sum of the largest contiguous ascending
+     * Assignment 2 Question 3 returns the sum off the largest contiguous ascending
      * array
      *
      * @return the sum
@@ -234,24 +293,28 @@ class Array2 {
 
     public static void main(String[] args) {
 
-        Array2 a = new Array2(6);
+        Array2 a = new Array2(11);
+        Array2 b = new Array2(5);
         a.set(0, 1);
-        a.set(1, 2); //index 1
-        a.set(2, 1);
-        a.set(3, 3);
+        a.set(1, 2);
+        a.set(2, 2);
+        a.set(3, 1);
         a.set(4, 2);
-        a.set(5, 1);
+        a.set(5, 3);
+        a.set(6, 2);
+        a.set(7, 4);
+        a.set(8, 4);
+        a.set(9, 5);
+        a.set(10, 5);
+        //  a.set(6, 6);
+        /*b.set(0, 6);
+        b.set(1, 5);
+        b.set(2, 5);
+        b.set(3, 3);
+        b.set(4, 4);*/
 
-        /*a.reverse();
-        System.out.println(a);*/
 
-        //a.remove2(3,a);
-        //System.out.println(a);
-
-        //System.out.println(a.find(4, a));
-        //System.out.println(a.find(8, a));
-
+        // System.out.println(a.subArrayIndex(b));
         System.out.println(a.maxPalindrome());
-
     }
 }
