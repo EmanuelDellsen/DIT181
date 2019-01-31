@@ -216,10 +216,11 @@ class Array2 {
      * @param i the element to remove
      */
     public void remove2(int i) {
-
+ //changed to its this.size() and not arr[]
         if (i == this.size() - 1) {
             set(this.size-1,0);
             this.size--;
+
         } else {
             swap(this.arr, i, size() - 1);
             set(this.size()-1,0);
