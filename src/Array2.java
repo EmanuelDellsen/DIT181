@@ -218,9 +218,11 @@ class Array2 {
     public void remove2(int i) {
 
         if (i == this.arr[size() - 1]) {
+            set(this.size-1,0);
             this.size--;
         } else {
             swap(this.arr, i, size() - 1);
+            set(this.size-1,0);
             this.size--;
         }
     }
@@ -252,28 +254,37 @@ class Array2 {
         //throw new UnsupportedOperationException();
 
         int longestPalindrome = 0;
-        for (int i = 0; i < size() - 1; i++) {
-            int matchCounter = 0;
-            int k = i;
-            for (int j = size() - 1; j >= k; j--) {
-                if (get(k) != get(j)) {
-                    k = i;
-                    matchCounter = 0;
-                } else {
-                    if (k == j) {
-                        k++;
-                        matchCounter += 1;
-                    } else {
-                        k++;
-                        matchCounter += 2;
+        if (size > 0) {
+            if (size == 1){
+                longestPalindrome = 1;
+                return longestPalindrome;
+            } else {
+                for (int i = 0; i < size() - 1; i++) {
+                    int matchCounter = 0;
+                    int k = i;
+                    for (int j = size() - 1; j >= k; j--) {
+                        if (get(k) != get(j)) {
+                            k = i;
+                            matchCounter = 0;
+                        } else {
+                            if (k == j) {
+                                k++;
+                                matchCounter += 1;
+                            } else {
+                                k++;
+                                matchCounter += 2;
+                            }
+                        }
+                    }
+                    if (matchCounter > longestPalindrome) {
+                        longestPalindrome = matchCounter;
                     }
                 }
+                return longestPalindrome;
             }
-            if (matchCounter > longestPalindrome) {
-                longestPalindrome = matchCounter;
-            }
+        } else {
+            return longestPalindrome;
         }
-        return longestPalindrome;
     }
 
     /**
@@ -301,13 +312,6 @@ class Array2 {
         Array2 b = new Array2(5);
 
         a.set(0,1);
-        a.set(1,2);
-        a.set(2,3);
-        a.set(3,4);
-
-        a.remove(0);
-
-        a.size = 4;
 
         System.out.println(a);
 
