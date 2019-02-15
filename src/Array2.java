@@ -317,20 +317,44 @@ class Array2 {
      * @return the sum
      */
 
-    public int maxInterval() {
+    public int [] auxillary() {
 
-            if (size == 0){
-                return 0;
-            }   else {
+        int [] tempArray = new int [size];
 
-                return 1;
+        int j = 0;
+        int i = tempArray.length-1;
 
-            }
+        while(i-1 > -1 && get(i) > get(i-1)){
+            tempArray[j] = get(i);
+            j++;
+            i--;
+        }
+        tempArray[j] = get(i);
 
+        int [] copyArray = new int [j+1];
+        int k = 0;
 
-        //throw new UnsupportedOperationException();
+        for (; k < copyArray.length-1; k++){
+            copyArray[k] = tempArray[j];
+            j--;
+        }
+        copyArray[k] = tempArray[j];
+
+        return copyArray;
     }
 
+    public int maxInterval() {
+
+        if(size == 0){
+            return 0;
+        } else {
+            int [] tempArray = auxillary();
+            int max = tempArray[tempArray.length-1]-tempArray[0];
+            size -= tempArray.length;
+
+            return Math.max(max,maxInterval());
+        }
+    }
 
 
     /**
