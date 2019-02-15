@@ -158,10 +158,31 @@ public class LabSorting {
 
     public static void mergeSort(int[] array) {
         // Recursevily mergesort
-
-        if (){
+        if ( array.length == 1){
             return;
+
         } else{
+            int mid = array.length/2;
+            int [] right = new int[array.length-mid];
+            int [] left = new int [mid];
+
+
+            for (int i = 0; i < left.length; i++) {
+                left[i] = array[i];
+            }
+            for (int i = 0; i < right.length; i++) {
+                /*if (array.length % 2 == 0) {
+                    right[i] = array[mid + i ];
+                }
+                else {*/
+                    right[i] = array[mid + i ];
+
+            }
+            mergeSort(left);
+            System.out.println(Arrays.toString(left));
+            mergeSort(right);
+            System.out.println(Arrays.toString(right));
+            merge(array, left, right);
 
         }
 
@@ -188,12 +209,39 @@ public class LabSorting {
 
      */
     private static void merge(int[] array, int[] left, int[] right) {
+        int l = 0;
+        int r = 0;
+        int k = 0;
+
+        while (l < left.length && r < right.length){
+            if (left[l] <= right[r]){
+                array[k] = left[l];
+                k++;
+                l++;
+            } else {
+                array[k] = right[r];
+                k++;
+                r++;
+            }
+        }
+
+        while(l < left.length){
+            array[k] = left[l];
+            k++;
+            l++;
+        }
+
+        while(r < right.length){
+            array[k] = right[r];
+            k++;
+            r++;
+        }
 
 
 
         // Idea: repeatedly copy one element from either the left or right array to the
         // result array.
-        throw new UnsupportedOperationException();
+
     }
 
     /*  public static void mergeLecture ( int [] a, int [] tempArray, int leftPos, int rightPos, int rightEnd){
@@ -215,7 +263,7 @@ public class LabSorting {
   */
     public static void main(String[] args) {
         // Put code here to try out your algorithms
-        int[] arr = new int[]{3, 7, 8, 5, 2, 1, 9, 5, 4,  4, 3, 1, 11, 22, 31, 5121, 776,233, 43, 12, 2 ,1, 6};
+        /* int[] arr = new int[]{3, 7, 8, 5, 2, 1, 9, 5, 4,  4, 3, 1, 11, 22, 31, 5121, 776,233, 43, 12, 2 ,1, 6};
 
         System.out.println(Arrays.toString(arr));
         quickSort(arr,0,arr.length-1,false);
@@ -229,7 +277,16 @@ public class LabSorting {
         System.out.println(Arrays.toString(arr2));
         quickSort(arr2,0,arr2.length-1,true);
         System.out.println(Arrays.toString(arr2));
+        */
 
+        int [] arr = new int [] {2,3,5,2,4,3,1};
+
+       // System.out.println(arr);
+        mergeSort(arr);
+
+        System.out.println(Arrays.toString(arr));
+
+        //System.out.println(arr);
 
     }
 }
