@@ -1,5 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class LabSorting {
     /*
@@ -129,26 +127,44 @@ public class LabSorting {
 
     public static int median(int[] array){
 
-        //int median = medianAuxiliary(array,0,array.length-1, (array.length) / 2 );
-        int median;
-        // partition(array,0,array.length-1);
-
-        if ( array == null || array.length == 0){
-            return 0;
-        }
-        if (array.length == 1){
-            return array[0];
+        if (array.length <= 5){
+            return array[(array.length-1)/2];
         }
 
-        return quickselect(array,0, array.length-1, (array.length-1 ) / 2);
+        int[] medians;
 
-        /*if ( array.length % 2 == 0){
-            median = array[array.length/2 -1 ];
-        } else if (array.length == 5 ){
-             median = array[array.length / 2  ];
+        if (array.length % 5 == 0){
+            medians = new int [array.length/5];
         } else {
+            medians = new int [array.length/5+1];
+        }
 
-        }*/
+        int k = 0;
+        int j = 0;
+        int [] tempArray = new int [5];
+        int [] tempArrayMatrix = new int [array.length-5];
+
+        for (int i = 0; i < array.length;i++){
+
+            if (j == 5){
+                medians[k] = median(tempArray);
+                k++;
+                j = 0;
+
+            }
+            if (array.length+j-i >= 1 && array.length+j-i <= 4){
+                tempArrayMatrix[j] = array[i];
+                /*if (i == array.length-1){
+                    medians[k] = median(tempArrayMatrix);
+                }*/
+            }
+
+            tempArray[j] = array[i];
+            j++;
+        }
+        medians[k] = median(tempArrayMatrix);
+
+        return medians[(medians.length-1)/2];
     }
 
     public static int quickselect(int[] array, int begin, int end, int median){
@@ -400,68 +416,10 @@ public class LabSorting {
      }
 
     public static void main(String[] args) {
-        // Put code here to try out your algorithms
-        /* int[] arr = new int[]{3, 7, 8, 5, 2, 1, 9, 5, 4,  4, 3, 1, 11, 22, 31, 5121, 776,233, 43, 12, 2 ,1, 6};
 
-        System.out.println(Arrays.toString(arr));
-        quickSort(arr,0,arr.length-1,false);
-        System.out.println(Arrays.toString(arr));
+        int [] superArray = {20,5,12,1,3,6,8};
 
-        System.out.println("SKILJESTRECK");
-
-        int[] arr2 = new int[]{3, 7, 8, 5, 2, 1, 9, 5, 4, 4, 3, 1, 11, 22, 31, 5121, 776,233, 43, 12, 2 ,1, 6};
-
-
-        System.out.println(Arrays.toString(arr2));
-        quickSort(arr2,0,arr2.length-1,true);
-        System.out.println(Arrays.toString(arr2));
-        */
-
-       // int [] arr = new int [] {3,5,5,1,2,4,6,4,2,4,1,3,2,1,5,94,59,5,3,21,2,34,12,4,12,31,21,4,11,5,42,2,23,9,2,292,2};
-
-       // System.out.println(arr);
-
-        int[] arr1 = new int [100000];
-        int[] arr2 = new int [100000];
-        int[] arr3 = new int [100000];
-        int[] arr4 = new int [100000];
-        int[] arr5 = new int [100000];
-
-        fillTheArray(arr1,10,2);
-        fillTheArray(arr2,10,2);
-        fillTheArray(arr3,10,2);
-        fillTheArray(arr4,10,2);
-        fillTheArray(arr5,10,2);
-
-       // System.out.println(Arrays.toString(arr));
-       // System.out.println(Arrays.toString(arr));
-        benchmarkBubblesort(arr1);
-        benchmarkMerge(arr2);
-        benchmarkInsertionsort(arr3);
-        benchmarkQuicksortWithMedian(arr4);
-        benchmarkQuicksortWithoutMedian(arr5);
-
-
-        //System.out.println(arr);
+        System.out.println(median(superArray));
 
     }
 }
-
-
-/*   int currentMax = 0;
-
-            for (int i = 0; i < array.length-1 ; i++) {
-               currentMax += i;
-                for (int j = 0; j < i; j++) {
-                }
-                if (array[i+1] > max){
-                    max = array[i+1];
-                }
-                currentMax -= max;
-                if (array[i+1] < min){
-                    min = array[i+1];
-                }
-                currentMax -= min;
-                System.out.println(currentMax);
-            }
-*/
