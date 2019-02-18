@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class LabSorting {
     /*
@@ -74,12 +75,14 @@ public class LabSorting {
 
         for (int i = 1; i < array.length - 1; i++) {
 
+
             int j = i - 1;
 
             while (j >= 0 && array[j] > array[i]) {
 
                 array[j + 1] = array[j];
-                j = i - 1;
+                j = j - 1;
+                j++;
             }
 
             array[j + 1] = array[i];
@@ -252,7 +255,9 @@ public class LabSorting {
 
     public static void mergeSort(int[] array) {
         // Recursevily mergesort
-        if ( array.length == 1){
+
+
+        if ( array.length <= 1){
             return;
 
         } else{
@@ -419,7 +424,10 @@ public class LabSorting {
 
         int [] superArray = {20,5,12,1,3,6,8};
 
-        System.out.println(median(superArray));
+        System.out.println(Arrays.toString(superArray));
+        insertionSort(superArray);
+        System.out.println(Arrays.toString(superArray));
+
 
     }
 }

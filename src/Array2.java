@@ -344,9 +344,8 @@ class Array2 {
     }
 
     public int maxInterval() {
-
-        if(size == 0){
-            return 0;
+        if (size <= 0){
+            return -1;
         } else {
             int [] tempArray = auxillary();
             int max = tempArray[tempArray.length-1]-tempArray[0];
@@ -363,6 +362,16 @@ class Array2 {
      * @return the median
      */
 
+    public int median(){
+
+        if (size == 1) {
+            return arr[0];
+        } else {
+            return arr[(arr.length-1)/ 2];
+        }
+
+
+    }
 
     public static void main(String[] args) {
 
