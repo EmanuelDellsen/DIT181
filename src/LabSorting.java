@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class LabSorting {
     /*
@@ -72,23 +73,19 @@ public class LabSorting {
 
     public static void insertionSort(int[] array) {
 
-        for (int i = 1; i < array.length - 1; i++) {
 
-            int j = i - 1;
+        for (int i = 0; i < array.length-1; i++) {
+            int j = i+1;
 
-            while (j >= 0 && array[j] > array[i]) {
-
-                array[j + 1] = array[j];
-                j = i - 1;
+            if (array[j] < array[i]){
+                swap(array,j,i);
+                j--;
+                while(j > 0 && array[j-1] > array[j]){
+                    swap(array,j-1,j);
+                    j--;
+                }
             }
-
-            array[j + 1] = array[i];
-
         }
-
-       // System.out.println(System.nanoTime());
-
-        // throw new UnsupportedOperationException();
     }
     /*
      *
@@ -416,10 +413,11 @@ public class LabSorting {
      }
 
     public static void main(String[] args) {
+        int [] insertionTestArray = {2,4,7,34,4,4,-14,-3};
 
-        int [] superArray = {20,5,12,1,3,6,8};
-
-        System.out.println(median(superArray));
+        System.out.println(Arrays.toString(insertionTestArray));
+        insertionSort(insertionTestArray);
+        System.out.println(Arrays.toString(insertionTestArray));
 
     }
 }
