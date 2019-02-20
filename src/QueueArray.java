@@ -41,7 +41,19 @@ class QueueArray<Item> {
      * @param x the item to add
      */
     public void enqueue(Item x) {
-        throw new UnsupportedOperationException();
+        if (size == capacity){
+            capacity = capacity*2;
+            if (writePos < readPos){
+                int i = 0;
+                for (; i < readPos;i++){
+                    arr[size+i] = arr[i];
+                }
+                writePos = size+i;
+            }
+        }
+        writePos = (writePos+1) % capacity;
+        arr[writePos] = x;
+        size++;
     }
 
     /**
@@ -50,11 +62,14 @@ class QueueArray<Item> {
      * @return the first item in the queue
      */
     public Item dequeue() {
-        throw new UnsupportedOperationException();
+
+
     }
 
     public static void main(String[] args) {
         QueueArray<Integer> q = new QueueArray<Integer>();
+
+
 
     }
 }
