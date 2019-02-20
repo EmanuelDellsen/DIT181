@@ -136,21 +136,22 @@ public class LabSorting {
         return medians[(medians.length-1)/2];
     }*/
 
-    public static int theRealMedian(int [] array){
+    public static int theRealMedian(int [] array, int begin, int end){
 
+/*
         int medianValue = quickselectGood(array,0,array.length-1,(array.length-1)/2);
-        int medianIndex = 0;
+*/
+        int medianValue = quickselectGood(array,begin,end,(array.length-1)/2);
 
-        for (int i = 0; i < array.length; i++) {
+        int i = 0;
 
+        while(i < array.length && array[i] != medianValue ){
             if (array[i] == medianValue){
-
-                medianIndex = i;
+            } else {
+                i++;
             }
-
         }
-        return medianIndex;
-
+        return i;
     }
 
     public static int quickselectGood(int [] array, int left, int right, int k){
@@ -159,13 +160,15 @@ public class LabSorting {
         if (left >= right) {
             return left;
         }
-            int pivot = partition(array,left,right);
+        int pivot = partition(array,left,right);
         if ( k < pivot  ){
+            k = (right-left-1)/2;
             return quickselectGood(array,left,pivot-1,k);
         } if ( k > pivot){
-            return  quickselectGood(array,pivot+1,right,k );
+            k = (right-left-1)/2;
+            return  quickselectGood(array,pivot+1,right,k);
         }
-        return Integer.MAX_VALUE;
+        return array[pivot];
 
 
     }
@@ -181,28 +184,14 @@ public class LabSorting {
             return quickselect(array, begin, arrayIndex-1, median);
         }
 
-
-
     }
-    public int findMedianSize5(int [] array, int n){
-
-        return n;
-
-
-    }
-
 
     public static void quickSort(int[] array) {
         quickSort(array, 0, array.length - 1, false);
-       // System.out.println(System.nanoTime());
-
     }
 
     public static void quickSortMedian(int[] array) {
         quickSort(array, 0, array.length - 1, true);
-       // System.out.println(System.nanoTime());
-
-
     }
 
     // Quicksort part of an array
@@ -211,23 +200,15 @@ public class LabSorting {
         if (begin >= end) {
             return;
         }
-
         int pivotInd;
-
         if (useMedian) {
-            pivotInd = theRealMedian(array);
-
+            pivotInd = theRealMedian(array, begin, end);
         } else {
-
             pivotInd = partition(array, begin, end);
-
         }
-            // Put the pivot item at begin index
-            // Partition the array.
-            quickSort(array, begin,pivotInd-1,useMedian);
-            quickSort(array, pivotInd+1, end,useMedian);
 
-
+        quickSort(array, begin,pivotInd-1,useMedian);
+        quickSort(array, pivotInd+1, end,useMedian);
 
             // Now recursively quicksort the two partitions.
 
@@ -375,7 +356,7 @@ public class LabSorting {
         return (int) (Math.random() * Math.random() * 100000);
      }
 
-    public void benchmarkBubblesort(int [] array){
+    public static void benchmarkBubblesort(int [] array){
 
         long start = System.nanoTime();
         bubbleSort(array);
@@ -384,7 +365,7 @@ public class LabSorting {
 
     }
 
-    public void benchmarkMergesort(int [] array){
+    public static void benchmarkMergesort(int [] array){
 
         long start = System.nanoTime();
         mergeSort(array);
@@ -393,7 +374,7 @@ public class LabSorting {
 
     }
 
-    public void benchmarkInsertionsort(int [] array){
+    public static void benchmarkInsertionsort(int [] array){
 
         long start = System.nanoTime();
         insertionSort(array);
@@ -402,7 +383,7 @@ public class LabSorting {
 
     }
 
-     public void benchmarkQuicksortWithMedian(int [] array){
+     public static void benchmarkQuicksortWithMedian(int [] array){
 
          long start = System.nanoTime();
          quickSort(array, 0, array.length-1, true);
@@ -410,7 +391,7 @@ public class LabSorting {
          System.out.println("Quicksort with median completed in : " + (end - start));
 
      }
-    public void benchmarkQuicksortWithoutMedian(int [] array){
+    public static void benchmarkQuicksortWithoutMedian(int [] array){
 
         long start = System.nanoTime();
         quickSort(array, 0, array.length-1, false);
@@ -428,7 +409,7 @@ public class LabSorting {
 
     public static void main(String[] args) {
         int [] insertionTestArray = {7,10,4,3,20,15};
-        int [] bigArray = new int [1000];
+        int [] bigArray = new int [5];
          fillTheArray(bigArray,10,40);
 
        /* System.out.println(Arrays.toString(insertionTestArray));
@@ -436,6 +417,9 @@ public class LabSorting {
         System.out.println(Arrays.toString(insertionTestArray));
 
         */
+
+        benchmarkQuicksortWithMedian(bigArray);
+
 
     }
 }
