@@ -366,6 +366,10 @@ class Array2 {
 
     public static void main(String[] args) {
 
+        Array2 array2 = new Array2(2);
+        array2.set(0,29);
+        array2.set(1, 36);
+        System.out.println(array2.maxInterval());
 
     }
 }
