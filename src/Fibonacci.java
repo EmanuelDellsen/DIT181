@@ -30,8 +30,6 @@ public class Fibonacci {
     }
   }
 
-
-
   public static BigInteger fibCrack ( int n) {
     if (n <= 2) {
       memory[1] = BigInteger.ONE;
@@ -63,21 +61,32 @@ public class Fibonacci {
 
 
   public static BigInteger fib2 ( int n){
-    BigInteger n2 = BigInteger.ONE;
+    BigInteger n2 = BigInteger.ZERO;
     BigInteger n1 = BigInteger.ONE;
     BigInteger temp;
 
-    for (int i = n; i >2; i--){
+    for (int i = n; i > 2; i--){
       temp = n2;
       n2 = n1;
       n1 = n1.add(temp);
+    }
+
+    if (n <= 0){
+      return BigInteger.ZERO;
     }
     return n2.add(n1);
   }
 
   public static void main(String[] args) {
 
-    System.out.println(fib(3));
+    System.out.println(fib2(0));
+    System.out.println(fib2(1));
+    System.out.println(fib2(2));
+    System.out.println(fib2(3));
+    System.out.println(fib2(4));
+    System.out.println(fib2(5));
+    System.out.println(fib2(6));
+
 
   }
 
