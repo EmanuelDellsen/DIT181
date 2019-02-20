@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Excercise {
+public class InClassExercise {
     public static ArrayList getStrings() {
         Scanner in = new Scanner(System.in);
         ArrayList<String> stringList = new ArrayList<String>();
