@@ -90,7 +90,10 @@ public class LabSorting {
 
     }
 
-    public static int median(int[] array){
+
+
+   /* public static int median(int[] array){
+
 
         if (array.length <= 5){
             return array[(array.length-1)/2];
@@ -119,6 +122,10 @@ public class LabSorting {
             }
             if (array.length+j-i >= 1 && array.length+j-i <= 4){
                 tempArrayMatrix[j] = array[i];
+                *//*if (i == array.length-1){
+                    medians[k] = median(tempArrayMatrix);
+                }*//*
+
             }
 
             tempArray[j] = array[i];
@@ -127,6 +134,61 @@ public class LabSorting {
         medians[k] = median(tempArrayMatrix);
 
         return medians[(medians.length-1)/2];
+    }*/
+
+    public static int theRealMedian(int [] array){
+
+        int medianValue = quickselectGood(array,0,array.length-1,(array.length-1)/2);
+        int medianIndex = 0;
+
+        for (int i = 0; i < array.length; i++) {
+
+            if (array[i] == medianValue){
+
+                medianIndex = i;
+            }
+
+        }
+        return medianIndex;
+
+    }
+
+    public static int quickselectGood(int [] array, int left, int right, int k){
+
+
+        if (left >= right) {
+            return left;
+        }
+            int pivot = partition(array,left,right);
+        if ( k < pivot  ){
+            return quickselectGood(array,left,pivot-1,k);
+        } if ( k > pivot){
+            return  quickselectGood(array,pivot+1,right,k );
+        }
+        return Integer.MAX_VALUE;
+
+
+    }
+    public static int quickselect(int[] array, int begin, int end, int median){
+
+        int arrayIndex = partition(array, begin, end);
+
+        if ( arrayIndex == median){
+            return array[arrayIndex];
+        } else if ( arrayIndex < median){
+            return quickselect(array, arrayIndex+1, end, median);
+        } else {
+            return quickselect(array, begin, arrayIndex-1, median);
+        }
+
+
+
+    }
+    public int findMedianSize5(int [] array, int n){
+
+        return n;
+
+
     }
 
 
@@ -149,14 +211,26 @@ public class LabSorting {
         if (begin >= end) {
             return;
         }
-        // Use median as pivot
+
+        int pivotInd;
+
         if (useMedian) {
-            median(array);
+            pivotInd = theRealMedian(array);
+
+        } else {
+
+            pivotInd = partition(array, begin, end);
+
         }
             // Put the pivot item at begin index
-            int pivotInd = partition(array, begin, end);
+            // Partition the array.
             quickSort(array, begin,pivotInd-1,useMedian);
             quickSort(array, pivotInd+1, end,useMedian);
+
+
+
+            // Now recursively quicksort the two partitions.
+
     }
 
     private static int partition(int[] array, int begin, int end) {
@@ -178,6 +252,30 @@ public class LabSorting {
     return i;
     }
 
+   /* private static int partition(int[] array, int begin, int end) {
+        // Assumes that the pivot is located att array[begin]
+        int pivot = array[begin];
+        int i = begin;
+        int j = end;
+
+        while( i < j){
+
+           while ( pivot >= array[i] && i < j ){
+                i++;
+            }
+
+            while(pivot < array[j]){
+                j--;
+            }
+            if (i < j){
+                swap(array,i,j);
+            }
+        }
+        swap(array,i,j);
+
+        return j;
+    }*/
+
     /*
      *
 
@@ -188,7 +286,10 @@ public class LabSorting {
 
     public static void mergeSort(int[] array) {
         // Recursevily mergesort
-        if ( array.length == 1){
+
+
+
+        if ( array.length <= 1){
             return;
 
         } else{
@@ -275,11 +376,20 @@ public class LabSorting {
      }
 
     public static void main(String[] args) {
-        int [] insertionTestArray = {2,4,7,34,4,4,-14,-3};
+        int [] insertionTestArray = {7,10,4,3,20,15};
+        int [] bigArray = new int [1000];
+         fillTheArray(bigArray,10,40);
 
-        System.out.println(Arrays.toString(insertionTestArray));
-        insertionSort(insertionTestArray);
+       /* System.out.println(Arrays.toString(insertionTestArray));
+        System.out.println(quickselectGood(insertionTestArray, 0, insertionTestArray.length - 1, insertionTestArray.length / 2));
         System.out.println(Arrays.toString(insertionTestArray));
 
+        */
+
+
+
+
+        benchmarkQuicksortWithMedian(bigArray);
+       benchmarkQuicksortWithoutMedian(bigArray);
     }
 }
