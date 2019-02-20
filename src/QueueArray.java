@@ -63,7 +63,7 @@ class QueueArray<Item> {
      */
     public Item dequeue() {
 
-
+return null;
     }
 
     public static void main(String[] args) {
