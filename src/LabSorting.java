@@ -437,10 +437,5 @@ public class LabSorting {
 
         */
 
-
-
-
-        benchmarkQuicksortWithMedian(bigArray);
-       benchmarkQuicksortWithoutMedian(bigArray);
     }
 }

@@ -61,10 +61,10 @@ class QueueArray<Item> {
      *
      * @return the first item in the queue
      */
-    public Item dequeue() {
+   /* public Item dequeue() {
 
 
-    }
+    }*/
 
     public static void main(String[] args) {
         QueueArray<Integer> q = new QueueArray<Integer>();
