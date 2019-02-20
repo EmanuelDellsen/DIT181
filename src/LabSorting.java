@@ -375,6 +375,57 @@ public class LabSorting {
         return (int) (Math.random() * Math.random() * 100000);
      }
 
+    public void benchmarkBubblesort(int [] array){
+
+        long start = System.nanoTime();
+        bubbleSort(array);
+        long end = System.nanoTime();
+        System.out.println("Bubblesort completed in : " + (end - start));
+
+    }
+
+    public void benchmarkMergesort(int [] array){
+
+        long start = System.nanoTime();
+        mergeSort(array);
+        long end = System.nanoTime();
+        System.out.println("Mergesort completed in : " + (end - start));
+
+    }
+
+    public void benchmarkInsertionsort(int [] array){
+
+        long start = System.nanoTime();
+        insertionSort(array);
+        long end = System.nanoTime();
+        System.out.println("Insertionsort completed in : " + (end - start));
+
+    }
+
+     public void benchmarkQuicksortWithMedian(int [] array){
+
+         long start = System.nanoTime();
+         quickSort(array, 0, array.length-1, true);
+         long end = System.nanoTime();
+         System.out.println("Quicksort with median completed in : " + (end - start));
+
+     }
+    public void benchmarkQuicksortWithoutMedian(int [] array){
+
+        long start = System.nanoTime();
+        quickSort(array, 0, array.length-1, false);
+        long end = System.nanoTime();
+        System.out.println("Quicksort without median completed in : " + (end - start));
+
+    }
+
+
+
+
+
+
+
+
     public static void main(String[] args) {
         int [] insertionTestArray = {7,10,4,3,20,15};
         int [] bigArray = new int [1000];
