@@ -1,4 +1,5 @@
-
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 class Array2 {
 
@@ -340,13 +341,14 @@ class Array2 {
         }
         copyArray[k] = tempArray[j];
 
+
         return copyArray;
     }
 
     public int maxInterval() {
 
-        if(size == 0){
-            return 0;
+        if(size <= 0 || arr[0] < 0){
+            return -1;
         } else {
             int [] tempArray = auxillary();
             int max = tempArray[tempArray.length-1]-tempArray[0];
@@ -363,13 +365,72 @@ class Array2 {
      * @return the median
      */
 
+    public int median(){
+
+        int median = quickselect(arr,0,size-1,(size-1)/2);
+
+        return median;
+    }
+
+    private int partition(int[] array, int begin, int end) {
+        // Assumes that the pivot is located att array[begin]
+        int pivot = array[begin];
+        int i = begin-1;
+        int j = begin;
+
+        while( j <= end){
+            if (array[j] <= pivot){
+                i++;
+                swap(array,i,j);
+
+            }
+            j++;
+        }
+        swap(array,i,begin);
+
+        return i;
+    }
+
+
+    public int quickselect(int[] array, int begin, int end, int median){
+
+        int arrayIndex = partition(array, begin, end);
+
+        if ( arrayIndex == median){
+            return array[arrayIndex];
+        } else if ( arrayIndex < median){
+            return quickselect(array, arrayIndex+1, end, median);
+        } else {
+            return quickselect(array, begin, arrayIndex-1, median);
+        }
+
+
+
+    }
 
     public static void main(String[] args) {
 
         Array2 array2 = new Array2(2);
         array2.set(0,29);
-        array2.set(1, 36);
+        array2.set(1,36);
+       /* array2.set(2,10);
+        array2.set(3,1);
+        array2.set(4,2);
+        array2.set(5,34);
+        array2.set(6,15);
+        array2.set(7,17);
+        array2.set(8,8);
+        array2.set(9,9);
+        array2.set(10,2);
+        array2.set(11,5);
+        array2.set(12,3);
+        array2.set(13,55);
+        *//*array2.set(3,1);
+        array2.set(3,1);*/
+
+
         System.out.println(array2.maxInterval());
+
 
     }
 }
