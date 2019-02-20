@@ -14,6 +14,19 @@ public class Fibonacci {
     }
   }
 
+  public static BigInteger fib ( int n){
+    BigInteger n2 = BigInteger.ONE;
+    BigInteger n1 = BigInteger.ONE;
+    BigInteger temp;
+
+    for (int i = n; i >2; i--){
+      temp = n2;
+      n2 = n1;
+      n1 = n1.add(temp);
+    }
+    return n2.add(n1);
+  }
+
   public static void main(String[] args) {
     for (int i = 0; i < 201; i++) {
     }
