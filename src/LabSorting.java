@@ -33,14 +33,8 @@ public class LabSorting {
                     array[j] = array[j + 1];
                     array[j + 1] = temporary;
                 }
-
             }
-
         }
-       // System.out.println(System.nanoTime());
-
-
-        // throw new UnsupportedOperationException();
     }
 
     public static void bubbleSortOnCrack(int[] array) {
@@ -57,11 +51,8 @@ public class LabSorting {
                     array[j + 1] = temporary;
                     swapped = true;
                 }
-
             }
-
         }
-
     }
 
     /*
@@ -99,29 +90,6 @@ public class LabSorting {
 
     }
 
-   /* public static int medianAuxiliary(int [] array, int begin, int end, int middle){
-
-        if ( begin == end){
-            return array[begin];
-        }
-        int k = partition(array, begin, end);
-        int arrayLength = k - begin + 1 ;
-
-        if (arrayLength == k){
-            return array[k];
-        }
-
-        if ( arrayLength > middle) {
-
-            return medianAuxiliary(array,middle, begin, k -1);
-
-        } else{
-            return  medianAuxiliary(array, middle-arrayLength, end, k );
-
-        }
-
-    }*/
-
     public static int median(int[] array){
 
         if (array.length <= 5){
@@ -151,9 +119,6 @@ public class LabSorting {
             }
             if (array.length+j-i >= 1 && array.length+j-i <= 4){
                 tempArrayMatrix[j] = array[i];
-                /*if (i == array.length-1){
-                    medians[k] = median(tempArrayMatrix);
-                }*/
             }
 
             tempArray[j] = array[i];
@@ -164,27 +129,6 @@ public class LabSorting {
         return medians[(medians.length-1)/2];
     }
 
-    public static int quickselect(int[] array, int begin, int end, int median){
-
-        int arrayIndex = partition(array, begin, end);
-
-        if ( arrayIndex == median){
-            return array[arrayIndex];
-        } else if ( arrayIndex < median){
-            return quickselect(array, arrayIndex+1, end, median);
-        } else {
-            return quickselect(array, begin, arrayIndex-1, median);
-        }
-
-
-
-    }
-    public int findMedianSize5(int [] array, int n){
-
-        return n;
-
-
-    }
 
     public static void quickSort(int[] array) {
         quickSort(array, 0, array.length - 1, false);
@@ -210,14 +154,9 @@ public class LabSorting {
             median(array);
         }
             // Put the pivot item at begin index
-            int pivot = array[begin];
-            // Partition the array.
             int pivotInd = partition(array, begin, end);
             quickSort(array, begin,pivotInd-1,useMedian);
             quickSort(array, pivotInd+1, end,useMedian);
-
-
-            // Now recursively quicksort the two partitions.
     }
 
     private static int partition(int[] array, int begin, int end) {
@@ -253,6 +192,7 @@ public class LabSorting {
             return;
 
         } else{
+
             int mid = array.length/2;
             int [] right = new int[array.length-mid];
             int [] left = new int [mid];
@@ -265,33 +205,18 @@ public class LabSorting {
                 /*if (array.length % 2 == 0) {
                     right[i] = array[mid + i ];
                 }
-                else {*/
+                else {*/ // needed if we are supposed to merge by the left side
                     right[i] = array[mid + i ];
 
             }
             mergeSort(left);
-            //System.out.println(Arrays.toString(left));
             mergeSort(right);
-           // System.out.println(Arrays.toString(right));
             merge(array, left, right);
 
         }
 
-
-        //System.out.println(System.nanoTime());
-
-        // Merge the left and right sub-arrays
     }
 
-    /* public static void mergeSortLecture ( int [] a, int [] tempArray, int left, int right){
-         if (left < right ){
-             int center = (left+right) / 2;
-             mergeSortLecture(a, tempArray, left, center);
-             mergeSortLecture(a, tempArray, center + 1, right);
-             mergeLecture(a, tempArray, left, center + 1, right);
-
-         }
-     }*/
     /*
      * Private help method that merge two sorted arrays into one
      *
@@ -335,69 +260,6 @@ public class LabSorting {
         // result array.
 
     }
-
-    /*  public static void mergeLecture ( int [] a, int [] tempArray, int leftPos, int rightPos, int rightEnd){
-          int leftEnd = rightPos -1 ;
-          int tmpPos = leftPos;
-          int numElements = rightEnd - leftPos +1 ;
-
-          while(leftPos <= leftEnd && rightPos <= rightEnd){
-              if (a[leftPos] <= a[rightPos]){
-                  tempArray[tmpPos++] = a[leftPos++];
-              } else{
-                  tempArray[tmpPos++] = a[rightPos++];
-              }
-          }
-          while(leftPos <= leftEnd){
-              tempArray
-          }
-      }
-  */
-
-    public static void benchmarkBubblesort(int [] array){
-
-        long start = System.nanoTime();
-        bubbleSort(array);
-        long end = System.nanoTime();
-        System.out.println("Bubblesort took: " + (end - start) + " nanoseconds" );
-    }
-
-    public static void benchmarkMerge(int [] array){
-
-        long start = System.nanoTime();
-        mergeSort(array);
-        long end = System.nanoTime();
-        System.out.println("MergeSort took: " + (end - start) + " nanoseconds" );
-    }
-
-    public static void benchmarkInsertionsort(int [] array){
-
-        long start = System.nanoTime();
-        insertionSort(array);
-        long end = System.nanoTime();
-        System.out.println("Insertionssort took: " + (end - start) + " nanoseconds" );
-    }
-
-    public static void benchmarkQuicksortWithMedian(int [] array){
-
-
-        long start = System.nanoTime();
-        quickSort(array,0, array.length-1, true);
-        long end = System.nanoTime();
-        System.out.println("Quicksort with median took: " + (end - start) + " nanoseconds" );
-    }
-
-    public static void benchmarkQuicksortWithoutMedian(int [] array){
-
-        long start = System.nanoTime();
-        quickSort(array,0, array.length-1, false);
-        long end = System.nanoTime();
-        System.out.println("Quicksort without median took: " + (end - start) + " nanoseconds" );
-    }
-
-
-
-
 
 
     public static void fillTheArray(int [] array, int a, int b){
