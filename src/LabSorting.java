@@ -10,6 +10,11 @@ public class LabSorting {
      * @param j     the other element to swap
 
      */
+
+    static int counter = 0;
+    static int partitionCounter = 0;
+    static int medianCounter = 0;
+    static int quicksortCounter = 0;
     private static void swap(int[] array, int i, int j) {
         int x = array[i];
         array[i] = array[j];
@@ -136,43 +141,49 @@ public class LabSorting {
         return medians[(medians.length-1)/2];
     }*/
 
-    public static int theRealMedian(int [] array, int begin, int end){
+    public static int median(int [] array){
 
-/*
-        int medianValue = quickselectGood(array,0,array.length-1,(array.length-1)/2);
-*/
-        int medianValue = quickselectGood(array,begin,end,(array.length-1)/2);
+        int median = 0;
 
-        int i = 0;
+        if (array.length == 1){
+            median =  array[0];
+            return median;
+        } else if (array.length % 2 == 0){
+            int position = (array.length/2) -1;
+            median = quickselectGood(array,0,array.length-1, position);
 
-        while(i < array.length && array[i] != medianValue ){
-            if (array[i] == medianValue){
-            } else {
-                i++;
-            }
+
+        } else {
+            int position = array.length/2;
+            median = quickselectGood(array,0,array.length-1, position);
         }
-        return i;
+        return median;
+
+    }
+
+    public static int theRealMedian(int [] array, int begin, int end) {
+        return quickselectGood(array, begin, end, (end+begin)/2);
     }
 
     public static int quickselectGood(int [] array, int left, int right, int k){
 
-
-        if (left >= right) {
+        if ( left == right || right < left) {
             return left;
         }
-        int pivot = partition(array,left,right);
-        if ( k < pivot  ){
-            k = (right-left-1)/2;
-            return quickselectGood(array,left,pivot-1,k);
-        } if ( k > pivot){
-            k = (right-left-1)/2;
-            return  quickselectGood(array,pivot+1,right,k);
-        }
-        return array[pivot];
+
+            int pivot = partition(array, left, right);
+
+            if (pivot == k) {
+                return pivot;
+            } else  if (k < pivot) {
+                return quickselectGood(array, left, pivot-1, k);
+            } else {
+                return quickselectGood(array, pivot+1, right, k-pivot-left+1);
+            }
 
 
     }
-    public static int quickselect(int[] array, int begin, int end, int median){
+  /* public static int quickselect(int[] array, int begin, int end, int pos){
 
         int arrayIndex = partition(array, begin, end);
 
@@ -184,7 +195,7 @@ public class LabSorting {
             return quickselect(array, begin, arrayIndex-1, median);
         }
 
-    }
+    }*/
 
     public static void quickSort(int[] array) {
         quickSort(array, 0, array.length - 1, false);
@@ -203,16 +214,38 @@ public class LabSorting {
         int pivotInd;
         if (useMedian) {
             pivotInd = theRealMedian(array, begin, end);
+
         } else {
             pivotInd = partition(array, begin, end);
         }
 
-        quickSort(array, begin,pivotInd-1,useMedian);
-        quickSort(array, pivotInd+1, end,useMedian);
+        partition(array,begin,end);
+        quickSort(array, begin,pivotInd-1,false);
+        quickSort(array, pivotInd+1, end,false);
 
             // Now recursively quicksort the two partitions.
 
     }
+
+  /*  private static int partition(int[] array, int begin, int end) {
+        // Assumes that the pivot is located att array[begin]
+        int low = begin;
+        int high = end;
+        int pivot = array[begin];
+        int storeIndex = low;
+
+        for (int i = low; i < high; i++) {
+            if (array[i] < pivot) {
+                swap(array, storeIndex, i);
+                storeIndex++;
+            }
+        }
+        swap(array, high, storeIndex);
+        return storeIndex;
+
+    }*/
+
+
 
     private static int partition(int[] array, int begin, int end) {
         // Assumes that the pivot is located att array[begin]
@@ -230,32 +263,10 @@ public class LabSorting {
         }
         swap(array,i,begin);
 
-    return i;
+        return i;
     }
 
-   /* private static int partition(int[] array, int begin, int end) {
-        // Assumes that the pivot is located att array[begin]
-        int pivot = array[begin];
-        int i = begin;
-        int j = end;
 
-        while( i < j){
-
-           while ( pivot >= array[i] && i < j ){
-                i++;
-            }
-
-            while(pivot < array[j]){
-                j--;
-            }
-            if (i < j){
-                swap(array,i,j);
-            }
-        }
-        swap(array,i,j);
-
-        return j;
-    }*/
 
     /*
      *
@@ -408,17 +419,32 @@ public class LabSorting {
 
 
     public static void main(String[] args) {
-        int [] insertionTestArray = {7,10,4,3,20,15};
-        int [] bigArray = new int [5];
-         fillTheArray(bigArray,10,40);
+        int [] insertionTestArray = {-22, -17, 46, 34, -5};
+        int [] bubbleArray = new int [100];
+        int [] mergeArray = new int [100];
+        int [] insertionArray = new int [100];
+        int [] quickMedian = new int [100];
+        int [] quickOriginal = new int [100];
 
-       /* System.out.println(Arrays.toString(insertionTestArray));
-        System.out.println(quickselectGood(insertionTestArray, 0, insertionTestArray.length - 1, insertionTestArray.length / 2));
-        System.out.println(Arrays.toString(insertionTestArray));
+        fillTheArray(bubbleArray,4,3);
+        fillTheArray(mergeArray,4,3);
+        fillTheArray(insertionArray,4,3);
+        fillTheArray(quickMedian,4,3);
+        fillTheArray(quickOriginal,4,3);
 
-        */
 
-        benchmarkQuicksortWithMedian(bigArray);
+
+
+       benchmarkQuicksortWithMedian(quickMedian);
+        benchmarkQuicksortWithoutMedian(quickOriginal);
+
+        //System.out.println(Arrays.toString(bubbleArray));
+
+
+
+      //  System.out.println(Arrays.toString(mergeArray));
+
+
 
 
     }
