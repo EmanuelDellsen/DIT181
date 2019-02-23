@@ -15,6 +15,7 @@ public class LabSorting {
     static int partitionCounter = 0;
     static int medianCounter = 0;
     static int quicksortCounter = 0;
+
     private static void swap(int[] array, int i, int j) {
         int x = array[i];
         array[i] = array[j];
@@ -70,14 +71,14 @@ public class LabSorting {
     public static void insertionSort(int[] array) {
 
 
-        for (int i = 0; i < array.length-1; i++) {
-            int j = i+1;
+        for (int i = 0; i < array.length - 1; i++) {
+            int j = i + 1;
 
-            if (array[j] < array[i]){
-                swap(array,j,i);
+            if (array[j] < array[i]) {
+                swap(array, j, i);
                 j--;
-                while(j > 0 && array[j-1] > array[j]){
-                    swap(array,j-1,j);
+                while (j > 0 && array[j - 1] > array[j]) {
+                    swap(array, j - 1, j);
                     j--;
                 }
             }
@@ -90,56 +91,50 @@ public class LabSorting {
      * @param array the array to sort
      */
 
-    public static void selectSort(int [] array, int begin, int end){
+    public static void selectSort(int[] array, int begin, int end) {
 
 
     }
 
 
+    public static int medianUltimate(int[] array, int begin, int end) {
 
-   /* public static int median(int[] array){
 
-
-        if (array.length <= 5){
-            return array[(array.length-1)/2];
+        if (end+begin <= 5) {
+            return array[(end+begin - 1) / 2];
         }
-
         int[] medians;
-
-        if (array.length % 5 == 0){
-            medians = new int [array.length/5];
+        if (end+begin % 5 == 0) {
+            medians = new int[end+begin / 5];
         } else {
-            medians = new int [array.length/5+1];
+            medians = new int[(end+begin) / 5 + 1];
         }
-
         int k = 0;
         int j = 0;
-        int [] tempArray = new int [5];
-        int [] tempArrayMatrix = new int [array.length-5];
+        int[] tempArray = new int[5];
+        int[] tempArrayMatrix = new int[end+begin - 5];
 
-        for (int i = 0; i < array.length;i++){
+        for (int i = begin; i < end+begin; i++) {
 
-            if (j == 5){
-                medians[k] = median(tempArray);
+            if (j == 5) {
+                medians[k] = medianUltimate(tempArray,0,tempArray.length);
                 k++;
                 j = 0;
 
             }
-            if (array.length+j-i >= 1 && array.length+j-i <= 4){
+            if (end+begin + j - i >= 1 && end+begin + j - i <= 4) {
                 tempArrayMatrix[j] = array[i];
-                *//*if (i == array.length-1){
-                    medians[k] = median(tempArrayMatrix);
-                }*//*
-
             }
 
             tempArray[j] = array[i];
             j++;
         }
-        medians[k] = median(tempArrayMatrix);
+
+        medians[k] = medianUltimate(tempArrayMatrix,0,tempArrayMatrix.length);
 
         return medians[(medians.length-1)/2];
-    }*/
+
+    }
 
     public static int median(int [] array){
 
@@ -170,15 +165,13 @@ public class LabSorting {
         if ( left == right || right < left) {
             return left;
         }
-
             int pivot = partition(array, left, right);
-
             if (pivot == k) {
                 return pivot;
             } else  if (k < pivot) {
                 return quickselectGood(array, left, pivot-1, k);
             } else {
-                return quickselectGood(array, pivot+1, right, k-pivot-left+1);
+                return quickselectGood(array, pivot+1, right, k);
             }
 
 
@@ -213,13 +206,20 @@ public class LabSorting {
         }
         int pivotInd;
         if (useMedian) {
-            pivotInd = theRealMedian(array, begin, end);
+            int medianValue = medianUltimate(array,begin,end+1);
+
+            int i = 0;
+            while(array[i] != medianValue){
+                i++;
+            }
+            pivotInd = i;
 
         } else {
             pivotInd = partition(array, begin, end);
         }
 
         partition(array,begin,end);
+
         quickSort(array, begin,pivotInd-1,useMedian);
         quickSort(array, pivotInd+1, end,useMedian);
 
@@ -422,12 +422,21 @@ public class LabSorting {
         System.out.println("oracle quicksort : "+  (end-start));
     }
 
+    public static void reverse(int [] array) {
+
+        int j = array.length - 1;
+        for (int i = 0; i < j; i++) {
+            swap(array, i, j);
+            j--;
+        }
+    }
 
 
 
 
 
     public static void main(String[] args) {
+
         int [] insertionTestArray = {-22, -17, 46, 34, -5};
         int [] bubbleArray = new int [100];
         int [] mergeArray = new int [100];
@@ -444,6 +453,32 @@ public class LabSorting {
       //  System.out.println(Arrays.toString(quickMedian));
         //System.out.println(Arrays.toString(quickOriginal));
 
+
+       /* benchmarkBubblesort(bubbleArray);
+        benchmarkMergesort(mergeArray);
+        benchmarkInsertionsort(insertionArray);*/
+       benchmarkBubblesort(bubbleArray);
+       reverse(bubbleArray);
+       benchmarkBubblesort(bubbleArray);
+        System.out.println("------------------------------------");
+       benchmarkMergesort(mergeArray);
+       reverse(mergeArray);
+       benchmarkMergesort(mergeArray);
+        System.out.println("------------------------------------");
+
+        benchmarkInsertionsort(insertionArray);
+       reverse(insertionArray);
+       benchmarkInsertionsort(insertionArray);
+        System.out.println("------------------------------------");
+
+      /*  benchmarkQuicksortWithoutMedian(quickOriginal);
+       reverse(quickOriginal);
+       benchmarkQuicksortWithoutMedian(quickOriginal);
+
+*/
+
+     /*  benchmarkQuicksortWithMedian(insertionTestArray);
+        benchmarkQuicksortWithoutMedian(quickOriginal);*/
 
 
        benchmarkQuicksortWithMedian(quickMedian);
