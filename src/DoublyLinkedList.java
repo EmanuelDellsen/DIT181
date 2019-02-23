@@ -1,153 +1,173 @@
 
-class DoublyLinkedList<Item> {
 
-    private int size = 0;
-    private Node<Item> head;
-    private Node<Item> tail;
+public class DoublyLinkedList {
+    Node head; // head of list
+    Node tail;
 
-    /**
-     * Linked list node helper data type
-     *
-     * @param <Item>
-     */
-    private static class Node<Item> {
+    // Linked list Node.
+    // This inner class is made static
+    // so that main() can access it
+    static class Node {
 
-        Node<Item> next = null;
-        Item el = null;
-        Node<Item> prev = null;
+        int data;
+        Node next;
+        Node previous;
 
-    }
-
-    /**
-     * Public constructor
-     */
-    public DoublyLinkedList() {
-
-        this.size = size();
-        head.next = tail;
-        tail.prev = head;
-
-        // add things in the constructor to create an empty linked list object.
-    }
-
-    public int size() {
-        return size;
-    }
-
-    /**
-     * Hands on 6, Exercise 1, Get element at index n from the list
-     *
-     * @param n the index of the element to get
-     */
-    public Item get(int n) {
-
-        if ( n > size/2 && n >= 0) {
-
-            Node<Item> currentNode = tail;
-            int counter = size - 1;
-
-            while (currentNode != null) {
-
-                if (counter == n) {
-                    return  currentNode.el;
-                }
-                currentNode = currentNode.prev;
-                counter--;
-            }
-            throw new IllegalArgumentException();
-        }
-        if ( n < size/2 && n >= 0){
-
-            Node<Item> currentNode = head;
-            int counter = 0;
-
-            while ( currentNode != null){
-
-                if (counter == n){
-                    return currentNode.el;
-                }
-                currentNode = currentNode.next;
-                counter++;
-            }
-            throw new IllegalArgumentException();
-
-        }else{
-            throw new IllegalArgumentException();
-
+        // Constructor
+        Node(int d) {
+            data = d;
+            next = null;
+            previous = null;
         }
     }
 
-    /**
-     * Hands on 6, Exercise 2, Insert element x at index n in the list
-     *
-     * @param n the index where we want to do the insertion
-     * @param x the element to insert
-     */
-  /*  public void insertAt(int n, Item x) {
+    // Method to insert a new node
+    public static DoublyLinkedList insert(DoublyLinkedList list, int data)
+    {
+        // Create a new node with given data
+        Node new_node = new Node(data);
 
-        Node<Item> newNode = new Node<>();
-        newNode.el = x;
-
-        int temp;
-
-
-        if (n == 0) {
-
-            newNode.next = head;
-            newNode.prev = null;
-            head = newNode;
-
-        } else if ( n == size-1 ){
-
-            newNode.next = null;
-            newNode.prev=tail;
-            tail=newNode;
+        if (list.head == null) {
+            list.head = new_node;
+            list.tail = new_node;
 
         } else {
+            // Insert new_node as tail.
+            Node last = list.tail;
 
-            for (int i = 0; i < size ; i++) {
+            // Insert the new_node at last node
+            last.next = new_node;
+        }
 
-                if ()
+        // Return the list by head
+        return list;
+    }
 
-            }
+    // Method to print the LinkedList.
+    public static void printList(DoublyLinkedList list) {
+        Node currNode = list.head;
+
+        System.out.print("LinkedList: ");
+
+        // Traverse through the LinkedList
+        while (currNode != null) {
+            // Print the data at current node
+            System.out.print(currNode.data + " ");
+
+            // Go to next node
+            currNode = currNode.next;
+        }
+
+        System.out.println();
+    }
+
+    // **************DELETION BY KEY**************
+
+    // Method to delete a node in the LinkedList by KEY
+    public static DoublyLinkedList deleteByKey(DoublyLinkedList list, int key)
+    {
+        // Store head node
+        Node currNode = list.head, prev = null;
+
+        //
+        // CASE 1:
+        // If head node itself holds the key to be deleted
+
+        if (currNode != null && currNode.data == key) {
+            list.head = currNode.next; // Changed head
+
+            // Display the message
+            System.out.println(key + " found and deleted");
+
+            // Return the updated List
+            return list;
+        }
+
+        //
+        // CASE 2:
+        // If the key is somewhere other than at head
+        //
+
+        // Search for the key to be deleted,
+        // keep track of the previous node
+        // as it is needed to change currNode.next
+        while (currNode != null && currNode.data != key) {
+            // If currNode does not hold key
+            // continue to next node
+            prev = currNode;
+            currNode = currNode.next;
+        }
+
+        // If the key was present, it should be at currNode
+        // Therefore the currNode shall not be null
+        if (currNode != null) {
+            // Since the key is at currNode
+            // Unlink currNode from linked list
+            prev.next = currNode.next;
+
+            // Display the message
+            System.out.println(key + " found and deleted");
         }
 
 
-    }*/
+        // CASE 3: The key is not present
+        if (currNode == null) {
+            // Display the message
+            System.out.println(key + " not found");
+        }
 
-    /**
-     * Hands on 6, Exercise 3, Remove the element at index n from the list
-     *
-     * @param n the index where we want to remove an element
-     */
-    public void removeAt(int n) {
-        throw new UnsupportedOperationException();
-
+        // return the List
+        return list;
     }
 
-    /**
-     * Hands on 6, Exercise 4, reverse the list
-     *
-     */
-    public void reverse() {
+    // **************MAIN METHOD**************
 
-        throw new UnsupportedOperationException();
-    }
+    // method to create a Singly linked list with n nodes
+    public static void main(String[] args)
+    {
+        /* Start with the empty list. */
+        DoublyLinkedList list = new DoublyLinkedList();
 
-    /**
-     * return whether the list is empty or not
-     *
-     * @return
-     */
-    public boolean isEmpty() {
-        return size == 0;
-    }
+        //
+        // ******INSERTION******
+        //
 
-    public static void main(String[] args) {
-        DoublyLinkedList<Integer> l = new DoublyLinkedList<Integer>();
+        // Insert the values
+        list = insert(list, 1);
+        list = insert(list, 2);
+        list = insert(list, 3);
+        list = insert(list, 4);
+        list = insert(list, 5);
+        list = insert(list, 6);
+        list = insert(list, 7);
+        list = insert(list, 8);
 
-       // l.insertAt(0, 1);
+        // Print the LinkedList
+        printList(list);
 
+        //
+        // ******DELETION BY KEY******
+        //
 
+        // Delete node with value 1
+        // In this case the key is ***at head***
+        deleteByKey(list, 1);
+
+        // Print the LinkedList
+        printList(list);
+
+        // Delete node with value 4
+        // In this case the key is present ***in the middle***
+        deleteByKey(list, 4);
+
+        // Print the LinkedList
+        printList(list);
+
+        // Delete node with value 10
+        // In this case the key is ***not present***
+        deleteByKey(list, 10);
+
+        // Print the LinkedList
+        printList(list);
     }
 }

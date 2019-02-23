@@ -219,8 +219,9 @@ public class LabSorting {
         }
 
         partition(array,begin,end);
-        quickSort(array, pivotInd, end,useMedian);
+
         quickSort(array, begin,pivotInd-1,useMedian);
+        quickSort(array, pivotInd+1, end,useMedian);
 
             // Now recursively quicksort the two partitions.
 
@@ -248,22 +249,24 @@ public class LabSorting {
 
     private static int partition(int[] array, int begin, int end) {
         // Assumes that the pivot is located att array[begin]
-        int pivot = array[begin];
-        int i = begin-1;
-        int j = begin;
+         int pivot = array[begin];
+           int i = begin-1;
+         int k = begin;
 
-        while( j <= end){
-            if (array[j] <= pivot){
-                i++;
-                swap(array,i,j);
+          while( k <= end){
+               if (array[k] <= pivot){
+                  i++;
+                    swap(array,i,k);
 
-            }
-            j++;
-        }
-        swap(array,i,begin);
+              }
+               k++;
+          }
+          swap(array,i,begin);
 
-        return i;
-    }
+         return i;
+      }
+
+
 
 
 
@@ -411,6 +414,13 @@ public class LabSorting {
     }
 
 
+    public static void oracleBenchmark(int [] array){
+
+        long start = System.nanoTime();
+        Arrays.sort(array);
+        long end = System.nanoTime();
+        System.out.println("oracle quicksort : "+  (end-start));
+    }
 
     public static void reverse(int [] array) {
 
@@ -426,9 +436,10 @@ public class LabSorting {
 
 
     public static void main(String[] args) {
-        int [] insertionTestArray = {-22, -17, 46, 34, -5,65,3,2};
-        int [] bubbleArray = new int [100000];
-        int [] mergeArray = new int [100000];
+
+        int [] insertionTestArray = {-22, -17, 46, 34, -5};
+        int [] bubbleArray = new int [100];
+        int [] mergeArray = new int [100];
         int [] insertionArray = new int [100000];
         int [] quickMedian = new int [100000];
         int [] quickOriginal = new int [100000];
@@ -439,6 +450,8 @@ public class LabSorting {
         fillTheArray(quickMedian,4,3);
         fillTheArray(quickOriginal,4,3);
 
+      //  System.out.println(Arrays.toString(quickMedian));
+        //System.out.println(Arrays.toString(quickOriginal));
 
 
        /* benchmarkBubblesort(bubbleArray);
@@ -467,14 +480,15 @@ public class LabSorting {
      /*  benchmarkQuicksortWithMedian(insertionTestArray);
         benchmarkQuicksortWithoutMedian(quickOriginal);*/
 
-   //    medianUltimate(insertionTestArray);
-    //    System.out.println(Arrays.toString(insertionTestArray));
 
-        //System.out.println(Arrays.toString(bubbleArray));
+       benchmarkQuicksortWithMedian(quickMedian);
+        benchmarkQuicksortWithoutMedian(quickOriginal);
+        oracleBenchmark(insertionArray);
+
+      //  System.out.println(Arrays.toString(quickMedian));
 
 
-
-      //  System.out.println(Arrays.toString(mergeArray));
+        //System.out.println(Arrays.toString(quickOriginal));
 
 
 
