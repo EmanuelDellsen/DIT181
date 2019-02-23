@@ -11,7 +11,14 @@ public class LabSorting {
 
     //******* QUICK SORT START ********
 
-    private static void quickSort(int[] array, int begin, int end, final boolean useMedian) {
+    public static void quickSort(int [] array){
+        quickSort(array,0,array.length-1,false);
+    }
+
+    public static void quickSortMedian(int [] array){
+        quickSort(array,0,array.length-1,true);
+    }
+    public static void quickSort(int[] array, int begin, int end, final boolean useMedian) {
         // Base case.
         if (begin >= end) {
             return;
@@ -58,7 +65,7 @@ public class LabSorting {
 
     }
 
-    private static int partition(int[] array, int begin, int end) {
+    public static int partition(int[] array, int begin, int end) {
         // Assumes that the pivot is located att array[begin]
         int pivot = array[begin];
         int i = begin-1;
@@ -147,7 +154,7 @@ public class LabSorting {
         }
     }
 
-    private static void merge(int[] array, int[] left, int[] right) {
+    public static void merge(int[] array, int[] left, int[] right) {
         int l = 0;
         int r = 0;
         int k = 0;
