@@ -98,7 +98,7 @@ class DoublyLinkedList<Item> {
             for (int i = 0; i < n; i++){
 
 
-                if (i == n)
+                //if (i == n)
 
             }
 
