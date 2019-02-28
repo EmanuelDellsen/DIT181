@@ -383,6 +383,51 @@ class Array2 {
         } else {
             return maxSumFromTo(0,size());
         }
+    }*/
+
+    public int maxSumFromTo(int a, int b) {
+        if (a == b)
+            return 0;
+        else {
+            int m = ((b+a)-1) / 2;
+            int maxLeft = maxSumFromTo(a, m);
+            int maxRight = maxSumFromTo(m+1, b);
+            int maxCenter = maxSumCenter(a, b);
+            return Math.max(maxCenter, Math.max(maxLeft, maxRight));
+        }
+    }
+
+    private int maxSumCenter(int a, int b) {
+
+        int j = b;
+        int i = a;
+        int maxDiff = 0;
+
+        for (; i < j ;i++){
+            int k = i;
+            int currentmax = 0;
+            while(k < size()-1 && arr[k] < arr[k+1]){
+                    k++;
+                    currentmax = arr[k] - arr[i];
+            }
+            j--;
+            if (currentmax > maxDiff){
+                maxDiff = currentmax;
+            }
+        }
+
+        return maxDiff;
+    }
+
+    public int maxInterval() {
+
+        if(size() <= 0 || (size() == 1 && arr[0] < 0)){
+            return -1;
+        } else if(size() ==1) {
+            return arr[0];
+        } else{
+            return maxSumFromTo(0,size());
+        }
     }
 
 
@@ -437,18 +482,6 @@ class Array2 {
 
     public static void main(String[] args) {
 
-        Array2 array2 = new Array2(200);
-        array2.set(0,9);
-        array2.set(1,-6);
-        array2.set(2,4);
-        array2.set(3,30);
-        array2.set(4,37);
-        array2.set(5,9);
-
-        System.out.println("43");
-
-
-        System.out.println(array2.maxInterval());
 
 
     }
