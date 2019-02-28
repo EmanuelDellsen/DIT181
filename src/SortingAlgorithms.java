@@ -1,7 +1,7 @@
 public class SortingAlgorithms {
 
     private final static int NR_OF_BENCHMARK = 10;
-    private final static int AMOUNT_OF_VALUES = 100;
+    private final static int AMOUNT_OF_VALUES = 10000000;
 
     private static void quickSort(int[] array, int begin, int end, final boolean useMedian) {
         // Base case.
@@ -94,7 +94,6 @@ public class SortingAlgorithms {
         long start = System.nanoTime();
         quickSort(array, 0, array.length-1, true);
         long end = System.nanoTime();
-        System.out.println("Quicksort with median completed in : " + (end - start));
 
         return end-start;
 
@@ -104,7 +103,6 @@ public class SortingAlgorithms {
         long start = System.nanoTime();
         quickSort(array, 0, array.length-1, false);
         long end = System.nanoTime();
-        System.out.println("Quicksort without median completed in : " + (end - start));
 
         return end-start;
 
@@ -286,9 +284,7 @@ public class SortingAlgorithms {
             merge(array, left, right);
 
         }
-
     }
-
 
     private static void merge(int[] array, int[] left, int[] right) {
         int l = 0;
@@ -355,9 +351,7 @@ public class SortingAlgorithms {
 
         int[][] arrayOfArrays = {array1,array2,array3,array4,array5,array6,array7,array8,array9,array10,array11};
 
-        benchmarkAverageInsertionSort(arrayOfArrays);
-        reverseAllArrays(arrayOfArrays);
-        benchmarkAverageInsertionSort(arrayOfArrays);
+        benchmarkAverageNoMedian(arrayOfArrays);
 
 
     }
