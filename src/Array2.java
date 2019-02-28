@@ -1,6 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 class Array2 {
 
     private final int max_elements = 200;
@@ -188,10 +185,6 @@ class Array2 {
 
 
  */
- /*public static int maxSubarraySum(int[] array, int lo, int hi) {
-       // throw new UnsupportedOperationException();
-
-    }*/
 
 
     /**
@@ -318,7 +311,7 @@ class Array2 {
      * @return the sum
      */
 
-   /* public int [] auxillary() {
+    public int [] auxillary(int[]arr) {
 
         int [] tempArray = new int [size];
 
@@ -345,16 +338,50 @@ class Array2 {
         return copyArray;
     }
 
-    public int maxInterval() {
+    private int maxSumFromTo(int a, int b) {
 
-        if(size <= 0 || arr[0] < 0){
-            return -1;
+        if (a == b){
+            return 0;
+
         } else {
-            int [] tempArray = auxillary();
-            int max = tempArray[tempArray.length-1]-tempArray[0];
-            size -= tempArray.length;
+            int m = ((b+a)-1)/ 2;
+            int maxLeft = maxSumFromTo(a, m);
+            int maxRight = maxSumFromTo(m+1, b);
+            int maxCenter = maxSumCenter(a, b);
+            return Math.max(maxCenter, Math.max(maxLeft, maxRight));
+        }
+    }
 
-            return Math.max(max,maxInterval());
+
+    private int maxSumCenter(int a, int b) {
+
+        int j = b;
+        int i = a;
+        int maxDiff = 0;
+
+        for (; i < j ;i++){
+            int k = i;
+            int currentmax = 0;
+            while(k < size()-1 && arr[k] < arr[k+1]){
+                k++;
+                currentmax = arr[k]-arr[i];
+            }
+            j--;
+            if (currentmax > maxDiff){
+                maxDiff = currentmax;
+            }
+        }
+
+        return maxDiff;
+    }
+
+    public int maxInterval() {
+        if (size() <= 0 || (size()==1 && arr[0] < 0)) {
+            return -1;
+        } else if (size()==1){
+            return arr[0];
+        } else {
+            return maxSumFromTo(0,size());
         }
     }*/
 
@@ -455,26 +482,6 @@ class Array2 {
 
     public static void main(String[] args) {
 
-        Array2 array2 = new Array2(200);
-        array2.set(0,29);
-        array2.set(1,36);
-       /* array2.set(2,10);
-        array2.set(3,1);
-        array2.set(4,2);
-        array2.set(5,34);
-        array2.set(6,15);
-        array2.set(7,17);
-        array2.set(8,8);
-        array2.set(9,9);
-        array2.set(10,2);
-        array2.set(11,5);
-        array2.set(12,3);
-        array2.set(13,55);
-        *//*array2.set(3,1);
-        array2.set(3,1);*/
-
-
-        System.out.println(array2.maxInterval());
 
 
     }
