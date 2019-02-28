@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 class RPN {
   private Stack<String> evaluationStack = new Stack<String>();
+  private Stack<Integer> integerStack = new Stack<>();
 
   // Main input loop
   public void loop() {
@@ -18,10 +19,51 @@ class RPN {
         break;
       }
       System.out.println("Got a string: " + s);
+      inputMethod(s);
+      System.out.println(integerStack);
       System.out.print(prompt);
     }
     in.close();
   }
+
+  public void inputMethod(String s){
+
+    final String ADDITION = "+";
+    final String SUBTRACTION = "-";
+    final String DIVISION = "/";
+    final String MULTIPLICATION = "*";
+
+    int firstPop;
+
+    switch (s){
+
+      case ADDITION:
+        firstPop = integerStack.pop();
+        integerStack.push((integerStack.pop()+firstPop));
+        break;
+
+      case SUBTRACTION:
+        firstPop = integerStack.pop();
+        integerStack.push(integerStack.pop()-firstPop);
+        break;
+
+      case DIVISION:
+        firstPop = integerStack.pop();
+        integerStack.push(integerStack.pop()/firstPop);
+        break;
+
+      case MULTIPLICATION:
+        firstPop = integerStack.pop();
+        integerStack.push(integerStack.pop() * firstPop);
+        break;
+
+      default:
+        integerStack.push(Integer.valueOf(s));
+
+    }
+  }
+
+
 
   // Evaluate the stack and push the result back in the same stack
   public void evaluate() {
@@ -31,7 +73,7 @@ class RPN {
 
   // To visualise the token stack
   public String toString() {
-    StringBuilder res = new StringBuilder();
+    StringBuilder res = new StringBuilder(integerStack.peek());
     return res.toString();
   }
 
