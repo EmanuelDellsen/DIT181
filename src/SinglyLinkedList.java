@@ -46,30 +46,24 @@ class SinglyLinkedList<Item> {
 
   public Item get(int n) {
 
-    if (n < 0){
-      throw new IllegalArgumentException("Index ouf of bounds");
 
-    }
-    int counter = 0;
-    ListNode currentNode = header;
+    ListNode<Item> currentNode = header;
     if(size == 0){
-      return null;
+        throw new IllegalArgumentException("Index ouf of bounds");
     }
-    while (currentNode != null){
-      if (counter == n) {
-        return (Item) currentNode.el;
-      }else{
-        counter++;
-        currentNode = currentNode.next;
+      for (int i = 0; i < n ; i++) {
+          currentNode = currentNode.next;
       }
-    }
+      return currentNode.el;
 
-
-    throw new IllegalArgumentException("Index ouf of bounds");
   }
 
   // Insert element x at index n in the list
   public void insertAt(int n, Item x) {
+
+      ListNode<Item> newNode = new ListNode<>();
+      newNode.el=x;
+      newNode.next = header;
 
     if (n > size || n < 0) {
       throw new IllegalArgumentException("Index ouf of bounds");
@@ -80,11 +74,8 @@ class SinglyLinkedList<Item> {
       currentNode = currentNode.next;
     }
 
-    ListNode temp = currentNode.next;
-    ListNode<Item> insertNode = new ListNode<>();
-    insertNode.el = x;
-    currentNode.next = insertNode;
-    insertNode.next = temp;
+
+    currentNode.next = newNode;
     size++;
   }
 
@@ -93,20 +84,19 @@ class SinglyLinkedList<Item> {
   // Remove the element at index n from the list
   public void removeAt(int n) {
 
-    if (size == 0){
+    if (size == n){
       throw new IllegalArgumentException("Index ouf of bounds");
     }
-
-    ListNode temp = header;
-
+    ListNode<Item> temp = header;
     if (n == 0){
       header = temp.next;
-      return;
+    } else {
+        for (int i = 0; i < n ; i++) {
+            temp = temp.next;
+        }
+        temp.next = temp.next.next;
+        size--;
     }
-
-    // if (...)
-
-    throw new UnsupportedOperationException();
   }
 
   // Reverse the list
@@ -131,6 +121,11 @@ class SinglyLinkedList<Item> {
 
   public static void main(String[] args) {
     SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
+
+
     System.out.println(l.size());
+
+
+
   }
 }
