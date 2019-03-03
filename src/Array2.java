@@ -1,3 +1,4 @@
+/*
 class Array2 {
 
     private final int max_elements = 200;
@@ -15,7 +16,7 @@ class Array2 {
 
     /**
      * @return the size of the Array
-     */
+
 
     public int size() {
         return size;
@@ -28,7 +29,7 @@ class Array2 {
      *
      * @param i the index of the element
      * @param x the element we're adding
-     */
+
 
     public void set(int i, int x) {
         arr[i] = x;
@@ -40,7 +41,7 @@ class Array2 {
      *
      * @param i the index of the element to get
      * @return the element found
-     */
+
 
     public int get(int i) {
         return arr[i];
@@ -49,7 +50,7 @@ class Array2 {
 
     /**
      * @return the content of the array as a String
-     */
+
 
     public String toString() {
         StringBuilder res = new StringBuilder("{");
@@ -71,7 +72,7 @@ class Array2 {
      *
      * @param i the index where to insert
      * @param x the element to insert
-     */
+
 
     public void insert(int i, int x) {
 
@@ -97,7 +98,7 @@ class Array2 {
      * Hands on session 1 Exercise 2
      *
      * @return true if the array is sorted
-     */
+
 
     public boolean isSorted() {
         for (int i = 0; i < size() - 1; i++) {
@@ -114,7 +115,7 @@ class Array2 {
      * Hands on session 1 Exercise 3
      *
      * @return the length of longest increasing sub array
-     */
+
 
     public int maxNonDecreasing() {
         int currentMax = 1;
@@ -147,7 +148,7 @@ class Array2 {
      *
      * @param b The subarray to compare with
      * @return the index where the subarray starts
-     */
+
 
     public int subArrayIndex(Array2 b) {
         for (int i = 0; i <= (size - (b.size() - 1)); i++) {
@@ -184,12 +185,12 @@ class Array2 {
  * @return the sum of the subarray
 
 
- */
+
 
 
     /**
      * Assignment 1 Question 1 Reverse the array
-     */
+
 
     public void reverse() {
 
@@ -204,7 +205,7 @@ class Array2 {
      * Assignment 1 Question 2 Remove the element of index i from the array.
      *
      * @param i the element to remove
-     */
+
 
     public void remove(int i) {
 
@@ -226,7 +227,7 @@ class Array2 {
      * method may change the order of the other elements of the array.
      *
      * @param i the element to remove
-     */
+
 
     public void remove2(int i) {
         if (i == this.size() - 1) {
@@ -247,7 +248,6 @@ class Array2 {
      *
      * @param x the element to find
      * @return the index of the first occurrence
-     */
 
     public int find(int x) {
 
@@ -265,7 +265,7 @@ class Array2 {
      * contiguous subsequence of the array.
      *
      * @return The length of the palindrome
-     */
+
 
     public int maxPalindrome() {
 
@@ -309,7 +309,7 @@ class Array2 {
      * array
      *
      * @return the sum
-     */
+
 
     public int [] auxillary(int[]arr) {
 
@@ -383,7 +383,7 @@ class Array2 {
         } else {
             return maxSumFromTo(0,size());
         }
-    }*/
+    }
 
     public int maxSumFromTo(int a, int b) {
         if (a == b)
@@ -435,7 +435,7 @@ class Array2 {
      * Assignment 2 Question 3 Return the median value of an array.
      *
      * @return the median
-     */
+
 
     public int median(){
 
@@ -487,3 +487,4 @@ class Array2 {
     }
 }
 
+*/
