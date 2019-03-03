@@ -45,22 +45,67 @@ class SinglyLinkedList<Item> {
   }
 
   public Item get(int n) {
-    // if (...)
-    // throw new IllegalArgumentException("Index ouf of bounds");
-    throw new UnsupportedOperationException();
+
+    if (n < 0){
+      throw new IllegalArgumentException("Index ouf of bounds");
+
+    }
+    int counter = 0;
+    ListNode currentNode = header;
+    if(size == 0){
+      return null;
+    }
+    while (currentNode != null){
+      if (counter == n) {
+        return (Item) currentNode.el;
+      }else{
+        counter++;
+        currentNode = currentNode.next;
+      }
+    }
+
+
+    throw new IllegalArgumentException("Index ouf of bounds");
   }
 
   // Insert element x at index n in the list
   public void insertAt(int n, Item x) {
-    // if (...)
-    // throw new IllegalArgumentException("Index ouf of bounds");
-    throw new UnsupportedOperationException();
+
+    if (n > size || n < 0) {
+      throw new IllegalArgumentException("Index ouf of bounds");
+    }
+
+      ListNode<Item> currentNode = header;
+    for (int i = 0; i < n ; i++) {
+      currentNode = currentNode.next;
+    }
+
+    ListNode temp = currentNode.next;
+    ListNode<Item> insertNode = new ListNode<>();
+    insertNode.el = x;
+    currentNode.next = insertNode;
+    insertNode.next = temp;
+    size++;
   }
+
+
 
   // Remove the element at index n from the list
   public void removeAt(int n) {
+
+    if (size == 0){
+      throw new IllegalArgumentException("Index ouf of bounds");
+    }
+
+    ListNode temp = header;
+
+    if (n == 0){
+      header = temp.next;
+      return;
+    }
+
     // if (...)
-    // throw new IllegalArgumentException("Index ouf of bounds");
+
     throw new UnsupportedOperationException();
   }
 
