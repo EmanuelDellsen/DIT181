@@ -6,6 +6,8 @@ import java.util.Stack;
 class Tree<Item extends Comparable<Item>> {
     // If the tree is empty, root is a null reference.
 
+
+
     private Node<Item> root = null;
     // A node of a tree contains a label, and optionally
     // references to the roots of its left and right subtrees,
@@ -151,7 +153,28 @@ class Tree<Item extends Comparable<Item>> {
      *
      */
     public void printBFT() {
-        throw new UnsupportedOperationException();
+
+        if (root==null){
+            throw new NullPointerException("No tree");
+        }
+
+        Queue<Node<Item>> queueList = new LinkedList<>();
+
+        queueList.add(root);
+
+        while (!(queueList.isEmpty())){
+
+            Node<Item> firstNode = queueList.poll();
+            System.out.println(firstNode.el);
+
+            if (firstNode.left != null){
+                queueList.add(firstNode.left);
+            }
+            if (firstNode.right != null){
+                queueList.add(firstNode.right);
+            }
+        }
+
     }
 
     /**
@@ -163,7 +186,29 @@ class Tree<Item extends Comparable<Item>> {
      *
      */
     public Item nthDFS(int n) {
-        throw new UnsupportedOperationException();
+
+        Stack<Node<Item>> myNodeStack = new Stack<>();
+        Node<Item> currentNode = root;
+        int itemCounter = 0;
+        if (currentNode == null){
+            throw  new NullPointerException("No tree");
+        }
+        myNodeStack.push(root);
+        while(!myNodeStack.empty()){
+           Node<Item> item = myNodeStack.pop();
+           if (itemCounter == n){
+               return item.el;
+           } else {
+               if(item.right!=null){
+                   myNodeStack.push(item.right);
+
+               }  if (item.left!=null){
+                   myNodeStack.push(item.left);
+               }
+           }
+           itemCounter++;
+        }
+        throw new RuntimeException("hej");
     }
 
     /**
@@ -205,8 +250,15 @@ class Tree<Item extends Comparable<Item>> {
      */
     public void removeBST(Item i) {
 
+        if (root==null){
+            throw new NullPointerException("Tree is chopped");
+        }
+
+        if (root == i);
+
         // This method mainly calls deleteRec() 
         root = deleteRec(root, i);
+        root = null;
 
     }
 
@@ -219,7 +271,39 @@ class Tree<Item extends Comparable<Item>> {
      * @return the new root node
      */
     private Node<Item> deleteRec(Node<Item> root, Item i) {
-        throw new UnsupportedOperationException();
+
+        if (i == root.el){
+            if (root.right == null && root.left==null){
+                return root;
+            } else if(root.left == null){
+                return root.right;
+            }else if (root.right == null ){
+                return root.left;
+            } else {
+                Node<Item> node = minValue(root.right);
+                node.el = root.el;
+                return node;
+            }
+        } else {
+            int x = root.el.compareTo(i);
+            if (x > 0) {
+                deleteRec(root.left, i);
+            } else {
+                deleteRec(root.right, i);
+            }
+        }
+        throw new RuntimeException("Something went wrong");
+    }
+
+    public Node<Item> minValue(Node<Item> root){
+
+        while(root.left != null){
+
+            root = root.left;
+        }
+        return root;
+
+
     }
 
     /**
@@ -234,6 +318,10 @@ class Tree<Item extends Comparable<Item>> {
     public static void main(String[] args) {
         Tree<Integer> t = exampleTree();
         // System.out.println("Size: " + t.size());
+        t.printTree();
+
+        t.removeBST(4);
+
         t.printTree();
     }
 }
