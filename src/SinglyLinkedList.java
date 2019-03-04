@@ -46,36 +46,37 @@ class SinglyLinkedList<Item> {
 
   public Item get(int n) {
 
-
     ListNode<Item> currentNode = header;
-    if(size == 0){
-        throw new IllegalArgumentException("Index ouf of bounds");
-    }
-      for (int i = 0; i < n ; i++) {
+    int counter = 0;
+    if (size() <= 0 || 0 > n || n > size()) {
+      throw new IllegalArgumentException("Index ouf of bounds");
+    } else {
+      while (currentNode.next != null && counter < n) {
           currentNode = currentNode.next;
-      }
-      return currentNode.el;
-
+          counter++;
+        }
+        return currentNode.el;
+    }
   }
 
   // Insert element x at index n in the list
   public void insertAt(int n, Item x) {
-
-      ListNode<Item> newNode = new ListNode<>();
-      newNode.el=x;
-      newNode.next = header;
-
+    ListNode<Item> currentNode = header;
+    int counter = 0;
     if (n > size || n < 0) {
       throw new IllegalArgumentException("Index ouf of bounds");
     }
-
-      ListNode<Item> currentNode = header;
-    for (int i = 0; i < n ; i++) {
-      currentNode = currentNode.next;
+    while( currentNode.next != null  ){
+      if (counter == n-1){
+        ListNode<Item> newNode = new ListNode<>();
+        newNode.el=x;
+        newNode.next=currentNode.next;
+        currentNode.next = newNode;
+      } else {
+        currentNode=currentNode.next;
+        counter ++;
+      }
     }
-
-
-    currentNode.next = newNode;
     size++;
   }
 
@@ -84,19 +85,21 @@ class SinglyLinkedList<Item> {
   // Remove the element at index n from the list
   public void removeAt(int n) {
 
-    if (size == n){
+    ListNode<Item> tempNode = header;
+    int counter = 0;
+    if (n > size || n < 0) {
       throw new IllegalArgumentException("Index ouf of bounds");
     }
-    ListNode<Item> temp = header;
-    if (n == 0){
-      header = temp.next;
-    } else {
-        for (int i = 0; i < n ; i++) {
-            temp = temp.next;
-        }
-        temp.next = temp.next.next;
-        size--;
+    while( tempNode.next != null  ){
+      if (counter == n){
+        tempNode.next= tempNode.next.next;
+
+      } else {
+        tempNode=tempNode.next;
+        counter ++;
+      }
     }
+    size--;
   }
 
   // Reverse the list
@@ -104,26 +107,81 @@ class SinglyLinkedList<Item> {
     throw new UnsupportedOperationException();
   }
 
+  public void addFirst(Item x){
+
+
+    ListNode<Item> currentNode = new ListNode<>();
+    currentNode.el = x;
+    currentNode.next = header;
+    header=currentNode;
+  }
+
   // Represent the contents of the list as a String
   /*
   public String toString() {
     StringBuilder res = new StringBuilder("{");
     if (size > 0) {
-      res.append(firstEl.toString());
-      for (int i = 1; i < size; ++i) {
+      res.append(header.el.toString());
+      for (int i = 1; i < size; i++) {
         res.append(", ");
-        res.append(el.toString());
+        res.append(header.toString());
       }
     }
     res.append("}");
     return res.toString();
   }*/
 
+  public boolean hasNextOfficial(ListNode<Item> node){
+
+    if (node.next != null){
+      return true;
+    } else{
+      return false;
+    }
+  }
+
+  @Override
+  public String toString() {
+
+    ListNode<Item> currentNode = new ListNode<>();
+    currentNode = header;
+
+    StringBuilder res = new StringBuilder("[" );
+    if (size > 0) {
+
+      while (currentNode.next != null) {
+        res.append(currentNode.el.toString());
+        currentNode = currentNode.next;
+        if (hasNextOfficial(currentNode)) {
+          res.append(", ");
+        }
+      }
+    }
+    res.append("]");
+    return res.toString();
+  }
+
   public static void main(String[] args) {
     SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
 
 
-    System.out.println(l.size());
+    l.size =9;
+
+    l.addFirst(-3);
+    l.addFirst(-21);
+    l.addFirst(-2);
+    l.addFirst(1);
+    l.addFirst(14);
+    l.addFirst(11);
+    l.addFirst(-13);
+    l.addFirst(23);
+    l.addFirst(16);
+    l.addFirst(-23);
+
+
+    System.out.println(l);
+    System.out.println(l.get(-1));
+    System.out.println(l);
 
 
 

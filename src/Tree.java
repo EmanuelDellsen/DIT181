@@ -7,7 +7,6 @@ class Tree<Item extends Comparable<Item>> {
     // If the tree is empty, root is a null reference.
 
 
-
     private Node<Item> root = null;
     // A node of a tree contains a label, and optionally
     // references to the roots of its left and right subtrees,
@@ -39,6 +38,7 @@ class Tree<Item extends Comparable<Item>> {
     public void setRoot(Node<Item> newRoot) {
         root = newRoot;
     }
+
     public Node<Item> getRoot() {
         return root;
     }
@@ -96,7 +96,7 @@ class Tree<Item extends Comparable<Item>> {
     //          / \
     //          5 7
     public static Tree<Integer> exampleTreeBin() {
-        Node<Integer> t = new Node<Integer>();
+        /*Node<Integer> t = new Node<Integer>();
         t.el = 4;
         Node<Integer> t1 = new Node<Integer>();
         t.left = t1;
@@ -118,16 +118,17 @@ class Tree<Item extends Comparable<Item>> {
         t211.el = 5;
         Node<Integer> t212 = new Node<Integer>();
         t21.right = t212;
-        t212.el = 7;
+        t212.el = 7;*/
 
         Tree<Integer> res = new Tree<Integer>();
-        res.root = t;
+        res.root = null;
         return res;
     }
 
     public int size() {
         return size(root);
     }
+
     private int size(Node<Item> node) {
         if (node == null) {
             return 0;
@@ -144,33 +145,57 @@ class Tree<Item extends Comparable<Item>> {
      * @return the element found at the position
      */
     public Item nthBFS(int n) {
-        throw new UnsupportedOperationException();
+
+        if (root == null) {
+            throw new NullPointerException("No tree");
+        }
+        Queue<Node<Item>> queue = new LinkedList<>();
+        queue.add(root);
+        int itemCounter = 1;
+        Node<Item> itemNode = root;
+
+        while (!(queue.isEmpty()) && itemCounter <= n) {
+            itemNode = queue.peek();
+            if (itemCounter == n) {
+                return itemNode.el;
+            }
+            if (itemNode != null) {
+                queue.remove();
+                if (itemNode.left != null && itemCounter <= n) {
+                    queue.add(itemNode.left);
+                }
+                if (itemNode.right != null && itemCounter <= n) {
+                    queue.add(itemNode.right);
+                }
+            }
+            itemCounter++;
+        }
+        return itemNode.el;
     }
+
 
     /**
      * Hands on session 7, exercise 2. Prints the labels of the tree's nodes in
      * breadth first order (BFS)
-     *
      */
     public void printBFT() {
 
-        if (root==null){
+        if (root == null) {
             throw new NullPointerException("No tree");
         }
-
         Queue<Node<Item>> queueList = new LinkedList<>();
 
         queueList.add(root);
 
-        while (!(queueList.isEmpty())){
+        while (!(queueList.isEmpty())) {
 
             Node<Item> firstNode = queueList.poll();
             System.out.println(firstNode.el);
 
-            if (firstNode.left != null){
+            if (firstNode.left != null) {
                 queueList.add(firstNode.left);
             }
-            if (firstNode.right != null){
+            if (firstNode.right != null) {
                 queueList.add(firstNode.right);
             }
         }
@@ -183,30 +208,29 @@ class Tree<Item extends Comparable<Item>> {
      *
      * @param n the node to find
      * @return the element in the n:th place
-     *
      */
     public Item nthDFS(int n) {
 
         Stack<Node<Item>> myNodeStack = new Stack<>();
         Node<Item> currentNode = root;
         int itemCounter = 0;
-        if (currentNode == null){
-            throw  new NullPointerException("No tree");
+        if (currentNode == null) {
+            throw new NullPointerException("No tree");
         }
         myNodeStack.push(root);
-        while(!myNodeStack.empty()){
-           Node<Item> item = myNodeStack.pop();
-           if (itemCounter == n){
-               return item.el;
-           } else {
-               if(item.right!=null){
-                   myNodeStack.push(item.right);
-
-               }  if (item.left!=null){
-                   myNodeStack.push(item.left);
-               }
-           }
-           itemCounter++;
+        while (!myNodeStack.empty()) {
+            Node<Item> item = myNodeStack.pop();
+            if (itemCounter == n) {
+                return item.el;
+            } else {
+                if (item.right != null) {
+                    myNodeStack.push(item.right);
+                }
+                if (item.left != null) {
+                    myNodeStack.push(item.left);
+                }
+            }
+            itemCounter++;
         }
         throw new RuntimeException("hej");
     }
@@ -216,8 +240,30 @@ class Tree<Item extends Comparable<Item>> {
      * order
      */
     public void printDFS() {
-        System.out.println(toStringDFS());
-        throw new UnsupportedOperationException();
+
+        if (root == null) {
+            throw new NullPointerException("No tree");
+        }
+
+        Queue<Node<Item>> myQueue = new LinkedList<>();
+        myQueue.add(root);
+        Stack<Node<Item>> myStack = new Stack<>();
+
+        while(!myQueue.isEmpty()){
+            Node<Item> newNode = myQueue.remove();
+
+            System.out.println(newNode.el.toString());
+            if (newNode.right != null){
+                myStack.push(newNode.right);
+            }
+            if (newNode.left != null){
+                myQueue.add(newNode.left);
+            } else if (!myStack.isEmpty()){
+                myQueue.add(myStack.pop());
+            }
+        }
+
+
     }
 
     /**
@@ -227,9 +273,31 @@ class Tree<Item extends Comparable<Item>> {
      * @return a string representation of the tree in DFS order
      */
     public String toStringDFS() {
-        throw new UnsupportedOperationException();
-        // StringBuilder sb = new StringBuilder();
-        // return sb.toString();
+         StringBuilder sb = new StringBuilder();
+
+        if (root == null) {
+            throw new NullPointerException("No tree");
+        }
+
+        Queue<Node<Item>> myQueue = new LinkedList<>();
+        myQueue.add(root);
+        Stack<Node<Item>> myStack = new Stack<>();
+
+        while(!myQueue.isEmpty()){
+            Node<Item> newNode = myQueue.remove();
+
+            sb.append(newNode.el+System.lineSeparator());
+            if (newNode.right != null){
+                myStack.push(newNode.right);
+            }
+            if (newNode.left != null){
+                myQueue.add(newNode.left);
+            } else if (!myStack.isEmpty()){
+                myQueue.add(myStack.pop());
+            }
+        }
+
+        return sb.toString();
     }
 
     /**
@@ -238,7 +306,42 @@ class Tree<Item extends Comparable<Item>> {
      * @param i the Item to insert
      */
     public void insertBST(Item i) {
-        throw new UnsupportedOperationException();
+
+
+        if (size() == 0) {
+            root = new Node<>();
+            root.el = i;
+        } else {
+            Node<Item> currentRoot = root;
+
+            Node<Item> newNode = new Node<>();
+            newNode.el = i;
+
+            while (((currentRoot.right != null) || (currentRoot.left != null))) {
+                if (i.compareTo(currentRoot.el) <= 0) {
+                    if (currentRoot.left == null){
+                        currentRoot.left = newNode;
+                    } else {
+                        currentRoot = currentRoot.left;
+                    }
+                } else {
+                    if (currentRoot.right == null){
+                        currentRoot.right = newNode;
+                    } else {
+                        currentRoot = currentRoot.right;
+                    }
+                }
+            }
+
+           /* Node<Item> newNode = new Node<>();
+            newNode.el = i;
+
+            if (i.compareTo(currentRoot.el) <= 0) {
+                currentRoot.left = newNode;
+            } else {
+                currentRoot.right = newNode;
+            }*/
+        }
     }
 
     /**
@@ -250,11 +353,11 @@ class Tree<Item extends Comparable<Item>> {
      */
     public void removeBST(Item i) {
 
-        if (root==null){
+        if (root == null) {
             throw new NullPointerException("Tree is chopped");
         }
 
-        if (root == i);
+        if (root == i) ;
 
         // This method mainly calls deleteRec() 
         root = deleteRec(root, i);
@@ -267,17 +370,17 @@ class Tree<Item extends Comparable<Item>> {
      * tree is BST.
      *
      * @param root the current root node
-     * @param i the Item to delete
+     * @param i    the Item to delete
      * @return the new root node
      */
     private Node<Item> deleteRec(Node<Item> root, Item i) {
 
-        if (i == root.el){
-            if (root.right == null && root.left==null){
+        if (i == root.el) {
+            if (root.right == null && root.left == null) {
                 return root;
-            } else if(root.left == null){
+            } else if (root.left == null) {
                 return root.right;
-            }else if (root.right == null ){
+            } else if (root.right == null) {
                 return root.left;
             } else {
                 Node<Item> node = minValue(root.right);
@@ -295,15 +398,11 @@ class Tree<Item extends Comparable<Item>> {
         throw new RuntimeException("Something went wrong");
     }
 
-    public Node<Item> minValue(Node<Item> root){
-
-        while(root.left != null){
-
+    public Node<Item> minValue(Node<Item> root) {
+        while (root.left != null) {
             root = root.left;
         }
         return root;
-
-
     }
 
     /**
@@ -316,12 +415,23 @@ class Tree<Item extends Comparable<Item>> {
     }
 
     public static void main(String[] args) {
-        Tree<Integer> t = exampleTree();
+        Tree<Integer> t = exampleTreeBin();
         // System.out.println("Size: " + t.size());
+
+
+        //System.out.println(t.nthBFS(7));
+
+
         t.printTree();
 
-        t.removeBST(4);
-
+        t.insertBST(-5);
+        t.insertBST(-12);
+        t.insertBST(20);
+        t.insertBST(4);
+        t.insertBST(21);
+        t.insertBST(19);
+        t.insertBST(17);
         t.printTree();
+
     }
 }
