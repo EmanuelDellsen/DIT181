@@ -180,7 +180,6 @@ class SinglyLinkedList<Item> {
 
 
     System.out.println(l);
-    System.out.println(l.get(-1));
     System.out.println(l);
 
 

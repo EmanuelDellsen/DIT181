@@ -305,8 +305,7 @@ class Tree<Item extends Comparable<Item>> {
      *
      * @param i the Item to insert
      */
-    public void insertBST(Item i) {
-
+    public void insertBST2(Item i) {
 
         if (size() == 0) {
             root = new Node<>();
@@ -314,34 +313,45 @@ class Tree<Item extends Comparable<Item>> {
         } else {
             Node<Item> currentRoot = root;
 
-            Node<Item> newNode = new Node<>();
-            newNode.el = i;
-
-            while (((currentRoot.right != null) || (currentRoot.left != null))) {
+            while (((currentRoot.left != null) && (currentRoot.right != null))) {
                 if (i.compareTo(currentRoot.el) <= 0) {
-                    if (currentRoot.left == null){
-                        currentRoot.left = newNode;
-                    } else {
-                        currentRoot = currentRoot.left;
-                    }
+                    currentRoot = currentRoot.left;
                 } else {
-                    if (currentRoot.right == null){
-                        currentRoot.right = newNode;
-                    } else {
-                        currentRoot = currentRoot.right;
-                    }
+                    currentRoot = currentRoot.right;
                 }
             }
 
-           /* Node<Item> newNode = new Node<>();
+            Node<Item> newNode = new Node<>();
             newNode.el = i;
 
-            if (i.compareTo(currentRoot.el) <= 0) {
+            if (i.compareTo(currentRoot.el) <= 0 ) {
                 currentRoot.left = newNode;
             } else {
                 currentRoot.right = newNode;
-            }*/
+            }
         }
+    }
+
+
+    public void insertBST(Item i) {
+        root = insertRecursively(root,i);
+    }
+
+    public Node<Item> insertRecursively(Node<Item> currentRoot, Item i){
+
+        if (currentRoot == null){
+            Node<Item> newNode = new Node<>();
+            newNode.el = i;
+            return newNode;
+        }
+
+        if (i.compareTo(currentRoot.el) <= 0){
+            currentRoot.left = insertRecursively(currentRoot.left,i);
+        } else {
+            currentRoot.right = insertRecursively(currentRoot.right, i);
+        }
+        return currentRoot;
+
     }
 
     /**
@@ -431,6 +441,7 @@ class Tree<Item extends Comparable<Item>> {
         t.insertBST(21);
         t.insertBST(19);
         t.insertBST(17);
+        t.insertBST(20);
         t.printTree();
 
     }
