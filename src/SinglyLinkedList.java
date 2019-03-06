@@ -1,4 +1,3 @@
-
 class SinglyLinkedList<Item> {
   private int size = 0;
   private ListNode<Item> header;
@@ -46,38 +45,38 @@ class SinglyLinkedList<Item> {
 
   public Item get(int n) {
 
-    ListNode<Item> currentNode = header;
-    int counter = 0;
-    if (size() <= 0 || 0 > n || n > size()) {
+    if (n >= size || n < 0) {
       throw new IllegalArgumentException("Index ouf of bounds");
     } else {
-      while (currentNode.next != null && counter < n) {
-          currentNode = currentNode.next;
-          counter++;
-        }
-        return currentNode.el;
+
+      ListNode<Item> currentNode = header.next;
+
+      for (int i = 0; i < n; i++) {
+        currentNode = currentNode.next;
+      }
+      return currentNode.el;
     }
   }
 
   // Insert element x at index n in the list
   public void insertAt(int n, Item x) {
-    ListNode<Item> currentNode = header;
-    int counter = 0;
+
     if (n > size || n < 0) {
       throw new IllegalArgumentException("Index ouf of bounds");
     }
-    while( currentNode.next != null  ){
-      if (counter == n-1){
-        ListNode<Item> newNode = new ListNode<>();
-        newNode.el=x;
-        newNode.next=currentNode.next;
-        currentNode.next = newNode;
-      } else {
-        currentNode=currentNode.next;
-        counter ++;
+    if (n == 0){
+      add(x);
+    } else {
+      ListNode<Item> currentNode = header.next;
+      for (int i = 0; i < n-1;i++){
+        currentNode = currentNode.next;
       }
+      ListNode<Item> newNode = new ListNode<>();
+      newNode.next = currentNode.next;
+      currentNode.next = newNode;
+      newNode.el = x;
+      size++;
     }
-    size++;
   }
 
 
@@ -85,35 +84,56 @@ class SinglyLinkedList<Item> {
   // Remove the element at index n from the list
   public void removeAt(int n) {
 
-    ListNode<Item> tempNode = header;
-    int counter = 0;
-    if (n > size || n < 0) {
+    if (n >= size || n < 0) {
       throw new IllegalArgumentException("Index ouf of bounds");
     }
-    while( tempNode.next != null  ){
-      if (counter == n){
-        tempNode.next= tempNode.next.next;
+    if (n == 0){
+      header.next = header.next.next;
+    } else {
+      ListNode<Item> currentNode = header.next;
 
-      } else {
-        tempNode=tempNode.next;
-        counter ++;
+      for (int i = 0; i < n-1; i++){
+        currentNode = currentNode.next;
       }
+      currentNode.next = currentNode.next.next;
     }
     size--;
   }
 
   // Reverse the list
   public void reverse() {
-    throw new UnsupportedOperationException();
+
+    ListNode<Item> node = header.next;
+    ListNode<Item> next = null;
+    ListNode<Item> previous = null;
+
+    while (node != null){
+
+      next = node.next;
+      node.next = previous;
+      previous = node;
+      node = next;
+
+    }
+
+    header.next = previous;
+
+
+
   }
 
-  public void addFirst(Item x){
-
-
+  public void add(Item x){
     ListNode<Item> currentNode = new ListNode<>();
     currentNode.el = x;
-    currentNode.next = header;
-    header=currentNode;
+
+    if (header.next == null){
+      header.next = currentNode;
+
+    } else {
+      currentNode.next = header.next;
+      header.next = currentNode;
+    }
+    size++;
   }
 
   // Represent the contents of the list as a String
@@ -133,7 +153,7 @@ class SinglyLinkedList<Item> {
 
   public boolean hasNextOfficial(ListNode<Item> node){
 
-    if (node.next != null){
+    if (node != null){
       return true;
     } else{
       return false;
@@ -144,12 +164,12 @@ class SinglyLinkedList<Item> {
   public String toString() {
 
     ListNode<Item> currentNode = new ListNode<>();
-    currentNode = header;
+    currentNode = header.next;
 
     StringBuilder res = new StringBuilder("[" );
     if (size > 0) {
 
-      while (currentNode.next != null) {
+      while (currentNode != null) {
         res.append(currentNode.el.toString());
         currentNode = currentNode.next;
         if (hasNextOfficial(currentNode)) {
@@ -164,25 +184,23 @@ class SinglyLinkedList<Item> {
   public static void main(String[] args) {
     SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
 
+    l.size = 0;
 
-    l.size =9;
+    /*l.add(-3);
+    l.add(-21);
+    l.add(-2);
+    l.add(1);
+    l.add(14);
+    l.add(11);
+    l.add(-13);
+    l.add(23);
+    l.add(16);
+    l.add(-23);*/
 
-    l.addFirst(-3);
-    l.addFirst(-21);
-    l.addFirst(-2);
-    l.addFirst(1);
-    l.addFirst(14);
-    l.addFirst(11);
-    l.addFirst(-13);
-    l.addFirst(23);
-    l.addFirst(16);
-    l.addFirst(-23);
-
-
-    System.out.println(l);
-    System.out.println(l);
-
-
+    System.out.println(l.toString());
+    l.insertAt(0,0);
+    System.out.println(l.toString());
+    System.out.println(l.get(1));
 
   }
 }
