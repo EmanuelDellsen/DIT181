@@ -96,14 +96,14 @@ class Tree<Item extends Comparable<Item>> {
     //          / \
     //          5 7
     public static Tree<Integer> exampleTreeBin() {
-        /*Node<Integer> t = new Node<Integer>();
-        t.el = 4;
+        Node<Integer> t = new Node<Integer>();
+        t.el = -23;
         Node<Integer> t1 = new Node<Integer>();
         t.left = t1;
-        t1.el = 1;
+        t1.el = 16;
         Node<Integer> t2 = new Node<Integer>();
         t.right = t2;
-        t2.el = 8;
+        t2.el = 20;
         Node<Integer> t12 = new Node<Integer>();
         t1.right = t12;
         t12.el = 2;
@@ -118,7 +118,7 @@ class Tree<Item extends Comparable<Item>> {
         t211.el = 5;
         Node<Integer> t212 = new Node<Integer>();
         t21.right = t212;
-        t212.el = 7;*/
+        t212.el = 7;
 
         Tree<Integer> res = new Tree<Integer>();
         res.root = null;
@@ -151,7 +151,7 @@ class Tree<Item extends Comparable<Item>> {
         }
         Queue<Node<Item>> queue = new LinkedList<>();
         queue.add(root);
-        int itemCounter = 1;
+        int itemCounter = 0;
         Node<Item> itemNode = root;
 
         while (!(queue.isEmpty()) && itemCounter <= n) {
@@ -429,7 +429,6 @@ class Tree<Item extends Comparable<Item>> {
         // System.out.println("Size: " + t.size());
 
 
-        //System.out.println(t.nthBFS(7));
 
 
         t.printTree();
@@ -442,6 +441,11 @@ class Tree<Item extends Comparable<Item>> {
         t.insertBST(19);
         t.insertBST(17);
         t.insertBST(20);
+
+
+       System.out.println(t.nthBFS(4));
+
+
         t.printTree();
 
     }
