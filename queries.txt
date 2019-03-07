@@ -18,4 +18,15 @@ db.delegates.find({},{name:1,country:1,_id=0})
 
 //MGDB7
 
+//MGDB8
+
+//MGDB8
+
+//MGDB9
+
+//MGDB10
+
+//MGDB11
+
+//MGDB12
 
