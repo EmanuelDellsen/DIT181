@@ -11,7 +11,7 @@ db.conferences.find({},{_id:1})
 db.conferences.find({co_located_with:"ICSE'41"})
 
 //MGDB5
-db.conferences.find({end : {$gte : new Date("2019/04/15")}}) - doesnt work yet
+db.conferences.find({"duration.end" : {$gt: "2019-04-15"}}).pretty()
 
 //MGDB6
 db.delegates.find({},{name:1,country:1,_id=0})
