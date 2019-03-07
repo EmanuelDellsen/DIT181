@@ -25,6 +25,7 @@ db.delegates.find({},{name:1,country:1,_id=0})
 //MGDB9
 
 //MGDB10
+> db.delegates.update({name: "Michael Whalen"},{$set: {"attends": [{"conference":"ICSE'41","registered":"2019-02-01"}]}})
 
 //MGDB11
 
