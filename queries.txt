@@ -1,0 +1,21 @@
+//MGDB1
+db.delegates.find()
+
+//MGDB2
+db.delegates.count()
+
+//MGDB3
+db.conferences.find({},{_id:1})
+
+//MGDB4
+db.conferences.find({co_located_with:"ICSE'41"})
+
+//MGDB5
+db.conferences.find({end : {$gte : new Date("2019/04/15")}}) - doesnt work yet
+
+//MGDB6
+db.delegates.find({},{name:1,country:1,_id=0})
+
+//MGDB7
+
+
