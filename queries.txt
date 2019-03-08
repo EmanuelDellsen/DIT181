@@ -20,15 +20,14 @@ db.delegates.find({},{name:1,country:1,_id=0})
 
 
 //MGDB8
-db.conferences.aggregate({$project : { "edition" : true, "_id" : false}})
-
+db.conferences.find({name: {$regex: 'ICSE'}}, {edition: true, _id:false} )
 
 //MGDB9
 
 db.delegates.update({name : "Sonia Haiduc"}, {$set : { "country" : "Australia"}})
 
 //MGDB10
-> db.delegates.update({name: "Michael Whalen"},{$set: {"attends": [{"conference":"ICSE'41","registered":"2019-02-01"}]}})
+db.delegates.update({name: "Michael Whalen"},{$set: {"attends": [{"conference":"ICSE'41","registered":"2019-02-01"}]}})
 
 //MGDB11
 
