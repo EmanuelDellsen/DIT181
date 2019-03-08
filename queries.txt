@@ -17,7 +17,7 @@ db.conferences.find({"duration.end" : {$gt: "2019-04-15"}}).pretty()
 db.delegates.find({},{name:1,country:1,_id=0})
 
 //MGDB7
-
+> db.conferences.find( {tracks : {$exists:true}, $where:'this.tracks.length>1'} ).pretty()
 
 //MGDB8
 db.conferences.find({name: {$regex: 'ICSE'}}, {edition: true, _id:false} )
