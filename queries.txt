@@ -23,13 +23,13 @@ db.delegates.find({},{name:1,country:1,_id=0})
 db.conferences.find({name: {$regex: 'ICSE'}}, {edition: true, _id:false} )
 
 //MGDB9
-
 db.delegates.update({name : "Sonia Haiduc"}, {$set : { "country" : "Australia"}})
 
 //MGDB10
 db.delegates.update({name: "Michael Whalen"},{$set: {"attends": [{"conference":"ICSE'41","registered":"2019-02-01"}]}})
 
 //MGDB11
+> db.delegates.count({country: {$regex : 'USA'}})
 
 //MGDB12
 
