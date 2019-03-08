@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+	<country name="Cuba">
+		<code>C</code>
+		<capital>La Habana</capital>
+		<province>La Habana</province>
+		<area>110860</area>
+		<population>11167325</population>
+		<continent>America</continent>
+		<cities>
+			<city name="Camagüey">
+				<province>Camagüey</province>
+				<population>307841</population>
+				<latitude>21.38</latitude>
+				<longitude>-77.91</longitude>
+				<elevation>95</elevation>
+				<airport>
+					<name>Ignacio Agramonde Itnl</name>
+					<iatacode>CMW</iatacode>
+					<elevation>126</elevation>
+				</airport>
+			</city>
+		</cities>
+		<cities>
+			<city name="Ciego de Ávila">
+				<province>Ciego de Ávila</province>
+				<population>124103</population>
+				<latitude>21.85</latitude>
+				<longitude>-78.76</longitude>
+				<elevation>55</elevation>
+				<airport />
+			</city>
+		</cities>
+	</country>

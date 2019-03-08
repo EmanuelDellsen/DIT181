@@ -1,0 +1,34 @@
+{
+  "Greece": {
+    "code": "GR",
+    "capital": "Athina",
+    "province": "Attikis",
+    "area": "131940",
+    "population": "10816286",
+    "continent": "Europe",
+    "cities": [
+      {
+        "Athina": {
+          "province": "Attikis",
+          "population": "664046",
+          "latitude": "37.97",
+          "longitude": "23.72",
+          "elevation": "70",
+          "airport": {
+            "name": "Eleftherios Venizelos Intl",
+            "iatacode": "ATH",
+            "elevation": "94"
+          }
+        }
+      },
+      {
+        "Tripoli": {
+          "province": "Peloponnisos",
+          "latitude": "37.52",
+          "longitude": "22.38",
+          "elevation": "655"
+        }
+      }
+    ]
+  }
+}

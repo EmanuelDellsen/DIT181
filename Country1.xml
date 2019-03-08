@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+	<country >
+    <name name = "Greece">
+		<code>GR</code>
+		<capital>Athina</capital>
+		<province>Attikis</province>
+		<area>131940</area>
+		<population>10816286</population>
+		<continent>Europe</continent>
+		<cities>
+			<city name = "Athina">
+				<province>Attikis</province>
+				<population>664046</population>
+				<latitude>37.97</latitude>
+				<longitude>23.72</longitude>
+				<elevation>70</elevation>
+				<airport>
+					<name>Eleftherios Venizelos Intl</name>
+					<iatacode>ATH</iatacode>
+					<elevation>94</elevation>
+				</airport>
+			</city>
+		</cities>
+		<cities>
+			<city name = "Tripoli">
+				<province>Peloponnisos</province>
+				<population />
+				<latitude>37.52</latitude>
+				<longitude>22.38</longitude>
+				<elevation>655</elevation>
+				<airport />
+			</city>
+		</cities>
+	</country>

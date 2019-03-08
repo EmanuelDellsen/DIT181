@@ -1,0 +1,37 @@
+{
+  "Cuba" : {
+    "code": "C",
+    "capital" : "La Habana",
+    "province" : "La Habana",
+    "area" : "110860",
+    "population" : "11167325",
+    "continent" : "America",
+    "cities" : [
+      {
+      "Camagüey" : {
+        "province" : "Camagüey",
+        "population" : "307841",
+        "latitude" : "21.38",
+        "longitude" : "-77.91",
+        "elevation" : "95",
+        "airport" : {
+          "name" : "Ignacio Agramonde Itnl",
+          "iatacode" : "CMW",
+          "elevation" : "126"
+          }
+      }
+    },
+      {
+        "Ciego de Ávila" : {
+          "province": "Ciego de Ávila",
+          "population" : "124103",
+          "latitude" : "21.85",
+          "longitude" : "-78.76",
+          "elevation" : "55"
+
+        }
+      }
+      ]
+
+  }
+}
