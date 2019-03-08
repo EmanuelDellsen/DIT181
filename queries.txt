@@ -19,7 +19,7 @@ db.conferences.find({"duration.end" : {$gt: "2019-04-15"}})
 db.delegates.find({},{name:1,country:1,_id=0})
 
 //MGDB7
-> db.conferences.find( {tracks : {$exists:true}, $where:'this.tracks.length>1'})
+db.conferences.find( {tracks : {$exists:true}, $where:'this.tracks.length>1'})
 
 //MGDB8
 db.conferences.find({name: {$regex: 'ICSE'}}, {edition: true, _id:false})
@@ -34,4 +34,4 @@ db.delegates.update({name: "Michael Whalen"},{$set: {"attends": [{"conference":"
 db.delegates.count({country: {$regex : 'USA'}})
 
 //MGDB12
-
+db.conferences.aggregate([{$lookup: {from: "delegates",localField: "general_chair", foreignField: "name", as: "conferences"}},   {$match: {"conferences.country" :{$regex: 'USA'}}}, {$project: { "name": true, _id:false}}])
