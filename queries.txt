@@ -18,4 +18,9 @@ db.delegates.find({},{name:1,country:1,_id=0})
 
 //MGDB7
 
+//MGDB8
+db.conferences.aggregate({$project : { "edition" : true, "_id" : false}})
 
+
+//MGDB9
+db.delegates.update({name : "Sonia Haiduc"}, {$set : { "country" : "Australia"}})
